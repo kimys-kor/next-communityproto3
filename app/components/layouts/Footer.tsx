@@ -1,6 +1,7 @@
 import React from "react";
 import Logo from "../Logo";
 import Image from "next/image";
+import teleIcon from "/public/images/icon/teleIcon.png";
 
 function Footer() {
   return (
@@ -29,6 +30,9 @@ function Footer() {
               <p className="text-xs md:text-sm mt-3 text-gray-400">
                 ⓒ 꽁머니팡. All rights reserved.
               </p>
+              <div className="w-full flex justify-center items-center">
+                <Image src={teleIcon} width={300} height={60} alt="teleIcon" />
+              </div>
             </div>
           </div>
         </div>

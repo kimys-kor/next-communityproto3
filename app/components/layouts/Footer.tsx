@@ -5,7 +5,7 @@ import teleIcon from "/public/images/icon/teleIcon.png";
 
 function Footer() {
   return (
-    <footer className="max-w-[1300px] mx-auto relative w-full min-h-96 mt-5 mb-5 border-t border-solid border-gray-200">
+    <footer className="max-w-[1300px] mx-auto relative w-full min-h-96 mt-5 border-t border-solid border-gray-200 mb-[100px]">
       <div className="w-full h-full absolute bg-footer bottom-0 flex items-center justify-center">
         <div className="w-full flex justify-center items-center px-2 py-4">
           <div>

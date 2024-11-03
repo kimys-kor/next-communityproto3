@@ -1,7 +1,12 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-function isTokenExpiringSoon(accessToken: string): boolean {
+function isTokenExpiringSoon(accessToken: string | undefined): boolean {
+  if (!accessToken) {
+    console.warn("Access token is undefined or empty.");
+    return false;
+  }
+
   try {
     const tokenPayload = JSON.parse(
       Buffer.from(accessToken.split(".")[1], "base64").toString()
@@ -34,12 +39,12 @@ export async function middleware(request: NextRequest) {
   const refreshToken = cookieValues["refresh_token"];
 
   // If accessToken or refreshToken is missing or if the token is not expiring soon, skip refresh
-  if (!isTokenExpiringSoon(accessToken)) {
+  if (!accessToken || !isTokenExpiringSoon(accessToken)) {
     return NextResponse.next({ request: { headers: requestHeaders } });
   }
 
-  if (!accessToken || !refreshToken) {
-    console.warn("Missing access token or refresh token.");
+  if (!refreshToken) {
+    console.warn("Missing refresh token.");
     return NextResponse.next({ request: { headers: requestHeaders } });
   }
 

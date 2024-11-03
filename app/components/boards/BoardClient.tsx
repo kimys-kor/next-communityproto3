@@ -177,9 +177,13 @@ const BoardClient: React.FC<BoardClientProps> = ({
 
   return (
     <section className="flex flex-col gap-1 mt-3">
-      <div className="flex items-center gap-3 mb-6 p-3 bg-white rounded-md border border-solid border-gray-200 shadow-sm">
+      <div className="flex items-center gap-2 mb-4 p-2 bg-white dark:bg-gray-800 rounded-md border border-solid border-gray-200 dark:border-gray-700 shadow-sm">
+        <label htmlFor="searchField" className="sr-only">
+          검색 필드 선택
+        </label>
         <select
-          className="p-2 border border-solid border-gray-300 rounded bg-gray-100 text-gray-700 text-sm"
+          id="searchField"
+          className="p-1 sm:p-2 border border-solid border-gray-300 dark:border-gray-600 rounded bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-xs sm:text-sm w-20 sm:w-auto"
           value={searchField}
           onChange={(e) => setSearchField(e.target.value)}
         >
@@ -191,16 +195,22 @@ const BoardClient: React.FC<BoardClientProps> = ({
           <option value="status">상태</option>
           <option value="createdDt">날짜</option>
         </select>
+
+        <label htmlFor="searchQuery" className="sr-only">
+          검색어 입력
+        </label>
         <input
+          id="searchQuery"
           type="text"
           placeholder="검색어 입력"
-          className="p-2 border border-solid border-gray-300 rounded w-64 text-gray-700 text-sm bg-gray-100"
+          className="p-1 sm:p-2 border border-solid border-gray-300 dark:border-gray-600 rounded text-gray-700 dark:text-gray-200 text-xs sm:text-sm bg-gray-100 dark:bg-gray-700 w-52 sm:w-64"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
+
         <button
           onClick={handleSearch}
-          className="px-4 py-2 bg-gray-600 text-white text-sm rounded-md font-medium"
+          className="px-2 py-1 sm:px-4 sm:py-2 bg-gray-600 text-white text-xs sm:text-sm rounded-md font-medium hover:bg-gray-700 dark:bg-gray-500 dark:hover:bg-gray-600 transition-colors truncate"
         >
           검색
         </button>

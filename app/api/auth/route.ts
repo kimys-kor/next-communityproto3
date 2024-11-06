@@ -32,6 +32,7 @@ export async function POST(request: Request) {
           secure: true,
           httpOnly: true,
           maxAge: 7200,
+          sameSite: "none",
         });
       }
 

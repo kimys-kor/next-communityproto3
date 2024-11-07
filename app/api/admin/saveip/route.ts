@@ -9,7 +9,7 @@ export async function POST(request: Request) {
 
     const { ipAddress } = await request.json();
 
-    const response = await fetch(`${process.env.API_URL}/admin/add/ip`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/add/ip`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

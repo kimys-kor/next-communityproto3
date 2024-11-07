@@ -36,7 +36,7 @@ export async function POST(request: Request) {
     };
 
     // Call the Spring backend API to update the banner
-    const response = await fetch(`${process.env.API_URL}/admin/update/banner`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/update/banner`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

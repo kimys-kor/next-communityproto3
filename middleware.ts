@@ -1,38 +1,13 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-function isTokenExpiringSoon(accessToken: string | undefined): boolean {
-  if (!accessToken) {
-    console.warn("Access token is undefined or empty.");
-    return false;
-  }
-
-  try {
-    const tokenPayload = JSON.parse(
-      Buffer.from(accessToken.split(".")[1], "base64").toString()
-    );
-
-    if (!tokenPayload.exp) {
-      console.warn("Token does not contain an expiration field.");
-      return false;
-    }
-
-    const expirationTime = tokenPayload.exp * 1000; // Convert to milliseconds
-    const currentTime = Date.now();
-    const timeUntilExpiration = expirationTime - currentTime;
-
-    return timeUntilExpiration <= 7200 * 60 * 1000;
-  } catch (error) {
-    console.error("Error decoding access token:", error);
-    return false;
-  }
-}
-
 export async function middleware(request: NextRequest) {
+  console.log('미들웨어 실행')
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-pathname", request.nextUrl.pathname);
 
   const cookieValues = await getCookie();
+  console.log('쿠키밸류', cookieValues)
   if (!cookieValues) return NextResponse.next();
 
   const accessToken = cookieValues["Authorization"]?.replace("Bearer ", "");
@@ -50,7 +25,7 @@ export async function middleware(request: NextRequest) {
 
   // Attempt to refresh the token
   try {
-    const response = await fetch(`${process.env.API_URL}/user/refresh`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/refresh`, {
       method: "GET",
       credentials: "include",
       headers: {
@@ -95,6 +70,7 @@ export const config = {
 export async function getCookie() {
   const cookieStore = cookies();
   const allCookies = cookieStore.getAll();
+  console.log('겟쿠키', allCookies)
 
   if (!allCookies || allCookies.length === 0) {
     return null;
@@ -105,4 +81,33 @@ export async function getCookie() {
   );
 
   return cookieMap;
+}
+
+function isTokenExpiringSoon(accessToken: string | undefined): boolean {
+  console.log('토큰 익스파이어 함수실행1')
+  if (!accessToken) {
+    console.warn("Access token is undefined or empty.");
+    return false;
+  }
+
+  try {
+    console.log('토큰 익스파이어 함수실행2')
+    const tokenPayload = JSON.parse(
+      Buffer.from(accessToken.split(".")[1], "base64").toString()
+    );
+
+    if (!tokenPayload.exp) {
+      console.warn("Token does not contain an expiration field.");
+      return false;
+    }
+
+    const expirationTime = tokenPayload.exp * 1000; // Convert to milliseconds
+    const currentTime = Date.now();
+    const timeUntilExpiration = expirationTime - currentTime;
+
+    return timeUntilExpiration <= 7200 * 60 * 1000;
+  } catch (error) {
+    console.error("Error decoding access token:", error);
+    return false;
+  }
 }

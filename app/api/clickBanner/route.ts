@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
 
   try {
     const response = await fetch(
-      `${process.env.API_URL}/guest/clickBanner?bannerId=${bannerId}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/guest/clickBanner?bannerId=${bannerId}`,
       {
         method: "GET",
         headers: {

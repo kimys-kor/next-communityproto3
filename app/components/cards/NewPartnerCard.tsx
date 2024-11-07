@@ -8,7 +8,7 @@ const fetchBoardList = async () => {
   const size = 11;
 
   const response = await fetch(
-    `${process.env.API_URL}/guest/list?typ=${typ}&keyword=&page=${page}&size=${size}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/guest/list?typ=${typ}&keyword=&page=${page}&size=${size}`,
     {
       method: "GET",
       headers: { "Content-Type": "application/json" },

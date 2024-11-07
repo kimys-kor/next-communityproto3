@@ -8,7 +8,7 @@ export async function GET(request: Request) {
 
   try {
     const response = await fetch(
-      process.env.API_URL +
+      process.env.NEXT_PUBLIC_API_URL +
         `/guest/list/comment?boardId=${boardId}&page=${page}&size=${size}`,
       {
         method: "GET",

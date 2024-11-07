@@ -12,7 +12,7 @@ export async function POST(request: Request) {
 
     const { username, password } = await request.json();
 
-    const apiResponse = await fetch(process.env.API_URL + "/guest/login", {
+    const apiResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + "/guest/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,10 +29,11 @@ export async function POST(request: Request) {
 
       if (accessToken != null) {
         cookieStore.set("Authorization", accessToken, {
-          secure: true,
           httpOnly: true,
           maxAge: 7200,
           sameSite: "none",
+          path: "/",
+          domain: "ggongpang.com"
         });
       }
 

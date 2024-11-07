@@ -17,7 +17,7 @@ export async function DELETE(request: NextRequest) {
     }
 
     const response = await fetch(
-      `${process.env.API_URL}/user/update/withdrawl`,
+      `${process.env.NEXT_PUBLIC_API_URL}/user/update/withdrawl`,
       {
         method: "DELETE",
         headers: {

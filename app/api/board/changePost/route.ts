@@ -15,7 +15,7 @@ export async function PATCH(request: Request) {
       );
     }
 
-    const response = await fetch(`${process.env.API_URL}/user/update/post`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/update/post`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

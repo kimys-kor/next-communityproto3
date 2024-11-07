@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const response = await fetch(`${process.env.API_URL}/guest/bannerlist`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/guest/bannerlist`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

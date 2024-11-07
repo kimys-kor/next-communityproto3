@@ -18,7 +18,7 @@ export async function PUT(request: Request) {
       );
     }
 
-    const response = await fetch(`${process.env.API_URL}/admin/set/block`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/set/block`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

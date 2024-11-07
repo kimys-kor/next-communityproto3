@@ -15,7 +15,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const response = await fetch(`${process.env.API_URL}/admin/saveBanner`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/saveBanner`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

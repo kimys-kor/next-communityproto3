@@ -13,7 +13,7 @@ export async function PATCH(request: NextRequest) {
     const item = await request.json();
 
     const response = await fetch(
-      `${process.env.API_URL}/admin/update/userinfo`,
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/update/userinfo`,
       {
         method: "PATCH",
         headers: {

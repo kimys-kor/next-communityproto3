@@ -18,7 +18,7 @@ async function fetchInitialMemberData(
 
   try {
     const response = await fetch(
-      `${process.env.API_URL}/admin/user/findall?page=${page}&size=${size}&keyword=${encodeURIComponent(keyword)}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/user/findall?page=${page}&size=${size}&keyword=${encodeURIComponent(keyword)}`,
       {
         method: "GET",
         headers: {

@@ -6,7 +6,7 @@ export async function GET(request: Request) {
 
   try {
     const response = await fetch(
-      process.env.API_URL + `/guest/content?boardId${boardId}`,
+      process.env.NEXT_PUBLIC_API_URL + `/guest/content?boardId${boardId}`,
       {
         method: "GET",
         credentials: "include",

@@ -15,7 +15,7 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const response = await fetch(`${process.env.API_URL}/user/update/mypw`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/update/mypw`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

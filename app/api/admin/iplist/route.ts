@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const response = await fetch(`${process.env.API_URL}/admin/blockediplist`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/blockediplist`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

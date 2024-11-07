@@ -21,7 +21,7 @@ export async function PUT(request: Request) {
     }
 
     const response = await fetch(
-      `${process.env.API_URL}/admin/transfer/postlist`,
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/transfer/postlist`,
       {
         method: "PUT",
         headers: {

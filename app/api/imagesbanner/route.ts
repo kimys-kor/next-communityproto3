@@ -17,7 +17,7 @@ export async function POST(request: Request) {
       }
     });
 
-    const response = await fetch(process.env.API_URL + "/admin/upload/banner", {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/admin/upload/banner", {
       method: "POST",
       body: uploadFormData,
       headers: {

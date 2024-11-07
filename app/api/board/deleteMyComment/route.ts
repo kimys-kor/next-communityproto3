@@ -16,7 +16,7 @@ export async function DELETE(request: Request) {
     }
 
     const response = await fetch(
-      `${process.env.API_URL}/user/comment/${commentId}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/user/comment/${commentId}`,
       {
         method: "DELETE",
         headers: {

@@ -17,7 +17,7 @@ export async function PUT(request: Request) {
     }
 
     const response = await fetch(
-      `${process.env.API_URL}/admin/delete/commentlist`,
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/delete/commentlist`,
       {
         method: "PUT",
         headers: {

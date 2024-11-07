@@ -7,7 +7,7 @@ const fetchBoardList = async () => {
   const typ = 19;
 
   const response = await fetch(
-    process.env.API_URL + `/guest/list?typ=${typ}&keyword=&page=0&size=5`,
+    process.env.NEXT_PUBLIC_API_URL + `/guest/list?typ=${typ}&keyword=&page=0&size=5`,
     {
       method: "GET",
       headers: { "Content-Type": "application/json" },

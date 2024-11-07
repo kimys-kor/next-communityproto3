@@ -16,7 +16,7 @@ export async function PUT(request: Request) {
       );
     }
 
-    const response = await fetch(`${process.env.API_URL}/admin/delete/ip`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/delete/ip`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

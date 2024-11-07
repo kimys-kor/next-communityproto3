@@ -5,13 +5,14 @@ import { cookies } from "next/headers";
 import { savePostRequest, CommentRequest } from "@/app/types";
 
 export async function refreshUser() {
+  console.log('리프레시유저 api실행')
   const tokens = await getCookie();
   if (!tokens) return null;
 
   const { accessToken, refreshToken } = tokens;
 
   try {
-    const response = await fetch(`${process.env.API_URL}/user/myinfo`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/myinfo`, {
       method: "GET",
       credentials: "include",
       headers: {
@@ -49,7 +50,7 @@ export const commentSaveServerAction = async (data: CommentRequest) => {
   }
 
   try {
-    const response = await fetch(`${process.env.API_URL}/user/write/comment`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/write/comment`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -83,7 +84,7 @@ export const postSaveServerAction = async (data: savePostRequest) => {
   }
 
   try {
-    const response = await fetch(`${process.env.API_URL}/user/save/post`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/save/post`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

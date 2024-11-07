@@ -12,7 +12,7 @@ export async function GET(request: Request) {
 
   try {
     const response = await fetch(
-      process.env.API_URL +
+      process.env.NEXT_PUBLIC_API_URL +
         `/master/adiminUser?keyword=${keyword}&page=${page}&size=${size}`,
       {
         method: "GET",

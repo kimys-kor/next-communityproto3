@@ -73,8 +73,7 @@ const Write: React.FC<WriteProps> = ({ title, postType }) => {
         toast.error("게시물 저장에 실패했습니다.");
       }
     } catch (error) {
-      console.error("Error saving post:", error);
-      toast.error("오류가 발생했습니다. 다시 시도해주세요.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 

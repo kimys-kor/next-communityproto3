@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React from "react";
 import { Banner } from "@/app/types";
+import toast from "react-hot-toast";
 
 interface ThreeBannerClientProps {
   banners: Banner[];
@@ -16,7 +17,7 @@ const ThreeBannerClient: React.FC<ThreeBannerClientProps> = ({ banners }) => {
       });
 
       if (response.ok) {
-        console.log("Banner click registered");
+
 
         // Ensure the URL is absolute
         const formattedUrl =
@@ -27,10 +28,9 @@ const ThreeBannerClient: React.FC<ThreeBannerClientProps> = ({ banners }) => {
         // Open the URL in a new tab
         window.open(formattedUrl, "_blank");
       } else {
-        console.error("Failed to register banner click");
       }
     } catch (error) {
-      console.error("Error registering banner click:", error);
+
     }
   };
 

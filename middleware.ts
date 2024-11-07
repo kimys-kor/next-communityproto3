@@ -2,12 +2,10 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  console.log('미들웨어 실행')
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-pathname", request.nextUrl.pathname);
 
   const cookieValues = await getCookie();
-  console.log('쿠키밸류', cookieValues)
   if (!cookieValues) return NextResponse.next();
 
   const accessToken = cookieValues["Authorization"]?.replace("Bearer ", "");
@@ -70,7 +68,6 @@ export const config = {
 export async function getCookie() {
   const cookieStore = cookies();
   const allCookies = cookieStore.getAll();
-  console.log('겟쿠키', allCookies)
 
   if (!allCookies || allCookies.length === 0) {
     return null;
@@ -84,14 +81,12 @@ export async function getCookie() {
 }
 
 function isTokenExpiringSoon(accessToken: string | undefined): boolean {
-  console.log('토큰 익스파이어 함수실행1')
   if (!accessToken) {
     console.warn("Access token is undefined or empty.");
     return false;
   }
 
   try {
-    console.log('토큰 익스파이어 함수실행2')
     const tokenPayload = JSON.parse(
       Buffer.from(accessToken.split(".")[1], "base64").toString()
     );

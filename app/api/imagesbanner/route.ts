@@ -5,7 +5,6 @@ export async function POST(request: Request) {
   const cookieStore = cookies();
   const accessToken = cookieStore.get("Authorization")?.value;
 
-  console.log("실행행실행행실행행실행행");
   try {
     const formData = await request.formData();
 
@@ -25,7 +24,6 @@ export async function POST(request: Request) {
       },
     });
 
-    console.log("Spring response status:", response.status);
 
     if (!response.ok) {
       const errorText = await response.text();

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Banner } from "@/app/types";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface BannerListProps {
   banners: Banner[];
@@ -33,8 +34,6 @@ const HomeBannerClient: React.FC<BannerListProps> = ({ banners }) => {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("Banner click registered:", result);
-
         const formattedUrl =
           partnerUrl.startsWith("http://") || partnerUrl.startsWith("https://")
             ? partnerUrl
@@ -42,10 +41,10 @@ const HomeBannerClient: React.FC<BannerListProps> = ({ banners }) => {
 
         window.open(formattedUrl, "_blank");
       } else {
-        console.error("Failed to register banner click");
+
       }
     } catch (error) {
-      console.error("Error registering banner click:", error);
+
     }
   };
 

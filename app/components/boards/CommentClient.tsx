@@ -8,6 +8,7 @@ import { useUserStore } from "@/app/globalStatus/useUserStore";
 import { commentSaveServerAction } from "@/app/api/authAction";
 import { FaTrash } from "react-icons/fa";
 import { usePathname } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface CommentPageClientProps {
   initialData: {
@@ -61,7 +62,7 @@ const CommentPageClient: React.FC<CommentPageClientProps> = ({
         setTotalPages(Math.ceil(data.data.total / size));
       }
     } catch (error) {
-      console.error("Error fetching comments:", error);
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 
@@ -87,7 +88,7 @@ const CommentPageClient: React.FC<CommentPageClientProps> = ({
       setCurrentPage(1);
       setNewComment("");
     } else {
-      console.error("Failed to submit comment:", result.message);
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 
@@ -111,7 +112,7 @@ const CommentPageClient: React.FC<CommentPageClientProps> = ({
         throw new Error("Failed to edit comment");
       }
     } catch (error) {
-      console.error("Error editing comment:", error);
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 
@@ -135,8 +136,7 @@ const CommentPageClient: React.FC<CommentPageClientProps> = ({
         throw new Error("댓글 삭제 실패");
       }
     } catch (error) {
-      console.error("Error deleting post:", error);
-      alert("댓글 삭제에 실패했습니다.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 
@@ -185,8 +185,7 @@ const CommentPageClient: React.FC<CommentPageClientProps> = ({
       setSelectedComments([]);
       setSelectAll(false);
     } catch (error) {
-      console.error("Error deleting comments:", error);
-      alert("An error occurred while deleting the selected comments.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 

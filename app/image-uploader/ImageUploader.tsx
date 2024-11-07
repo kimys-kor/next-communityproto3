@@ -2,6 +2,7 @@
 import { useState, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudUploadAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
+import toast from "react-hot-toast";
 
 interface ImageUploaderProps {
   onUpload?: (imageUrls: string[]) => void;
@@ -63,7 +64,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = () => {
 
       window.close();
     } catch (error) {
-      console.error("Error uploading images", error);
+      toast.error('서버에 문제가 발생했습니다')
     } finally {
       setUploading(false);
     }

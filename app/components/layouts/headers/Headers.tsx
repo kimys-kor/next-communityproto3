@@ -11,7 +11,6 @@ import UserMenu from "./userMenu";
 function Headers() {
   async function handleSearch() {
     "use server";
-    console.log("전체검색");
   }
 
   return (

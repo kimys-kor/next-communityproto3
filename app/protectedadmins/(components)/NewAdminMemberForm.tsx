@@ -60,8 +60,7 @@ const NewAdminMemberForm: React.FC<NewAdminMemberFormProps> = ({
       fetchData(currentPage, keyword);
       onSave();
     } catch (error) {
-      console.error("Error saving admin:", error);
-      toast.error("An unexpected error occurred. Please try again.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 

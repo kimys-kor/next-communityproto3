@@ -54,7 +54,6 @@ const BoardClient: React.FC<BoardClientProps> = ({
       setBoardList(data.data.content);
       setTotalElements(data.data.totalElements);
     } catch (error) {
-      console.error("Error fetching board list:", error);
       toast.error("Failed to fetch board list");
     }
   };
@@ -135,8 +134,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
       setShowTransferPopup(false);
       router.refresh();
     } catch (error) {
-      console.error("Error transferring selected items:", error);
-      alert("An error occurred while transferring the selected posts.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 
@@ -170,8 +168,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
       setSelectAll(false);
       toast.success("선택한 게시물이 성공적으로 삭제되었습니다.");
     } catch (error) {
-      console.error("Error deleting selected items:", error);
-      alert("An error occurred while deleting the selected posts.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 

@@ -14,6 +14,7 @@ import { useUserStore } from "@/app/globalStatus/useUserStore";
 import EditPost from "./EditPost";
 import CommentPageClient from "./CommentClient";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 interface BoardDetailClientPropsWithComments extends BoardDetailClientProps {
   boardId: string;
@@ -59,8 +60,7 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
         throw new Error("게시물 삭제 실패");
       }
     } catch (error) {
-      console.error("Error deleting post:", error);
-      alert("게시물 삭제에 실패했습니다.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
   const handleEditClick = () => {

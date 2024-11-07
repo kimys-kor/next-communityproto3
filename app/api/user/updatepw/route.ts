@@ -37,7 +37,6 @@ export async function PUT(request: NextRequest) {
     }
 
     const data = await response.json();
-    console.log("Password updated successfully:", data);
     return NextResponse.json(data);
   } catch (error) {
     console.error("Error updating password:", error);

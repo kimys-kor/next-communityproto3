@@ -8,6 +8,7 @@ import Paging from "@/app/components/Paging";
 import { useUserStore } from "@/app/globalStatus/useUserStore";
 import { FaTrash, FaArrowRight } from "react-icons/fa";
 import TransferPopup from "@/app/components/boards/TransferPopup";
+import toast from "react-hot-toast";
 
 interface PartnerCardClientProps {
   initialData: {
@@ -64,7 +65,7 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
         setTotalElements(data.data.totalElements);
         setTotalPages(data.data.totalPages);
       } catch (error) {
-        console.error("Error fetching partner content:", error);
+        toast.error('서버에 문제가 발생했습니다')
       }
     };
 
@@ -119,7 +120,6 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
       }
 
       const result = await response.json();
-      console.log("Transfer result:", result);
 
       setBoardList((prevBoardList) =>
         prevBoardList.filter((item) => !selectedItems.includes(item.id))
@@ -131,8 +131,7 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
 
       router.refresh();
     } catch (error) {
-      console.error("Error transferring selected items:", error);
-      alert("An error occurred while transferring the selected posts.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 
@@ -163,7 +162,6 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
       }
 
       const result = await response.json();
-      console.log("Deletion result:", result);
 
       setBoardList((prevBoardList) =>
         prevBoardList.filter((item) => !selectedItems.includes(item.id))
@@ -171,8 +169,7 @@ const PartnerCardClient: React.FC<PartnerCardClientProps> = ({
       setSelectedItems([]);
       setSelectAll(false);
     } catch (error) {
-      console.error("Error deleting selected items:", error);
-      alert("An error occurred while deleting the selected posts.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 

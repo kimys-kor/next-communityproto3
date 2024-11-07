@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 function DeleteAccount() {
   const [password, setPassword] = useState("");
@@ -37,13 +38,11 @@ function DeleteAccount() {
       }
 
       const result = await response.json();
-      console.log("Account deletion successful:", result);
       alert("계정이 성공적으로 삭제되었습니다.");
 
       window.location.href = "/";
     } catch (error) {
-      console.error("Account deletion error:", error);
-      alert("계정 삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
+      toast.error('서버에 문제가 발생했습니다')
     } finally {
       setIsSubmitting(false);
     }

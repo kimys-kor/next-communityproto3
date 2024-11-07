@@ -37,13 +37,11 @@ function BannerList() {
         setTotalElements(result.data.length);
         setTotalPages(Math.ceil(result.data.length / size));
       } else {
-        console.error("Expected data array, received:", result.data);
-        toast.error("Failed to load banner list: invalid data format.");
+        
       }
       setSelectedBanners([]);
     } catch (error) {
-      console.error("Error fetching banner data:", error);
-      toast.error("Failed to load banner list.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 
@@ -88,8 +86,7 @@ function BannerList() {
       toast.success("선택한 배너가 삭제되었습니다.");
       fetchData();
     } catch (error) {
-      console.error("Error deleting banners:", error);
-      toast.error("배너 삭제에 실패했습니다.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 
@@ -107,8 +104,7 @@ function BannerList() {
         throw new Error("Banner 삭제 실패");
       }
     } catch (error) {
-      console.error("Error deleting selected banners:", error);
-      toast.error("An error occurred while deleting the selected banners.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   }
 

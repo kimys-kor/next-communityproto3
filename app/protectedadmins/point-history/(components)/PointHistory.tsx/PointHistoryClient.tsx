@@ -35,8 +35,7 @@ function PointHistoryClient() {
       setTotalElements(data.data.totalElements);
       setTotalPages(data.data.totalPages);
     } catch (error) {
-      console.error("Error fetching point history:", error);
-      toast.error("Failed to load point history.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 

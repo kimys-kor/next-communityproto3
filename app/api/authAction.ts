@@ -5,7 +5,6 @@ import { cookies } from "next/headers";
 import { savePostRequest, CommentRequest } from "@/app/types";
 
 export async function refreshUser() {
-  console.log('리프레시유저 api실행')
   const tokens = await getCookie();
   if (!tokens) return null;
 

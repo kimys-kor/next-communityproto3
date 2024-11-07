@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { tabsCommunity } from "@/app/utils";
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 type TabContent = {
   id: number;
@@ -58,7 +59,7 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
 
         setTabContent(content);
       } catch (error) {
-        console.error("Error fetching tab content:", error);
+        toast.error('서버에 문제가 발생했습니다')
       }
     };
 

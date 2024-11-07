@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 function PasswordChange() {
   const [oldPassword, setOldPassword] = useState("");
@@ -52,8 +53,7 @@ function PasswordChange() {
       setErrors({});
       window.location.href = `/`;
     } catch (error) {
-      console.error("Update error:", error);
-      alert("비밀번호 변경 중 오류가 발생했습니다. 다시 시도해주세요.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 

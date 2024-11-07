@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { tabsAnalyze } from "@/app/utils";
 import { BoardItem } from "@/app/types";
+import toast from "react-hot-toast";
 
 interface TabAnalyzeClientProps {
   initialTab: number;
@@ -38,7 +39,7 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
         const data = await response.json();
         setBoardList(data.data.content);
       } catch (error) {
-        console.error("Failed to load board list:", error);
+        toast.error("서버에 문제가 발생했습니다")
       }
     };
 

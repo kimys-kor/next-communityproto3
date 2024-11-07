@@ -74,8 +74,7 @@ const NewBannerForm = ({ onClose, onSave }: NewBannerFormProps) => {
       setImageUrl(uploadedUrl);
       toast.success("이미지가 성공적으로 업로드되었습니다.");
     } catch (error) {
-      console.error("Error uploading image:", error);
-      toast.error("이미지 업로드에 실패했습니다.");
+      toast.error('서버에 문제가 발생했습니다')
     } finally {
       setUploading(false);
     }
@@ -102,8 +101,7 @@ const NewBannerForm = ({ onClose, onSave }: NewBannerFormProps) => {
       onSave();
       onClose();
     } catch (error) {
-      console.error("Error saving banner:", error);
-      toast.error("배너 추가에 실패했습니다.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 

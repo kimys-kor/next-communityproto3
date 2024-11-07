@@ -4,6 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import Image from "next/image";
 import logo from "/public/images/logo.png";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 interface FormData {
   id: string;
@@ -62,11 +63,9 @@ const SignUpForm: React.FC = () => {
       }
 
       const result = await response.json();
-      console.log("Sign-up successful:", result);
-      alert("회원가입이 완료되었습니다!");
+      toast.success("회원가입이 완료되었습니다!");
     } catch (error) {
-      console.error("Sign-up error:", error);
-      alert("회원가입 중 오류가 발생했습니다. 다시 시도해주세요.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 

@@ -51,8 +51,7 @@ function AdminMemberListClient() {
       setSelectedMembers([]);
       setSelectAll(false);
     } catch (error) {
-      console.error("Error fetching member data:", error);
-      toast.error("Failed to load members.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 
@@ -117,8 +116,7 @@ function AdminMemberListClient() {
       toast.success("선택한 회원이 차단되었습니다.");
       fetchData(currentPage, keyword);
     } catch (error) {
-      console.error("Error blocking members:", error);
-      toast.error("차단에 실패했습니다.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 

@@ -8,6 +8,7 @@ import { useUserStore } from "@/app/globalStatus/useUserStore";
 import { FaTrash, FaArrowRight } from "react-icons/fa";
 import TransferPopup from "@/app/components/boards/TransferPopup";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface PhotoBoardClientProps {
   initialData: {
@@ -58,7 +59,7 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
       setTotalElements(data.data.totalElements);
       setTotalPages(data.data.totalPages);
     } catch (error) {
-      console.error("Error fetching photo board data:", error);
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 
@@ -115,8 +116,7 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
       setSelectAll(false);
       setShowTransferPopup(false);
     } catch (error) {
-      console.error("Error transferring selected items:", error);
-      alert("An error occurred while transferring the selected posts.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 
@@ -150,8 +150,7 @@ const PhotoBoardClient: React.FC<PhotoBoardClientProps> = ({ initialData }) => {
       setSelectedItems([]);
       setSelectAll(false);
     } catch (error) {
-      console.error("Error deleting selected items:", error);
-      alert("An error occurred while deleting the selected posts.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 

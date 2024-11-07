@@ -57,11 +57,9 @@ function InfoChange() {
       }
 
       const result = await response.json();
-      console.log("User info updated successfully:", result);
       alert("회원정보가 성공적으로 수정되었습니다!");
       window.location.href = `/`;
     } catch (error) {
-      console.error("Update error:", error);
       alert("회원정보 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };

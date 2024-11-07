@@ -26,7 +26,6 @@ export async function POST(request: Request) {
 
     if (apiResponse.ok) {
       const accessToken = apiResponse.headers.get("Authorization");
-
       if (accessToken != null) {
         cookieStore.set("Authorization", accessToken, {
           httpOnly: true,

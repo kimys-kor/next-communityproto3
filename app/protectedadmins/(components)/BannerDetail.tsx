@@ -39,22 +39,17 @@ function BannerDetail({ banner, onBack }: BannerDetailProps) {
         });
 
         if (!response.ok) {
-          console.error("Failed to upload image");
           return;
         }
 
         const data = await response.json();
         const uploadedUrl = data.data[0];
-        console.log(uploadedUrl + "hihihihi");
         if (uploadedUrl) {
-          setThumbNail(uploadedUrl); // Set the new thumbnail URL from response
-          setImagePreview(uploadedUrl); // Update the preview to the new URL
-          console.log("Updated thumbNail URL:", uploadedUrl);
+          setThumbNail(uploadedUrl);
+          setImagePreview(uploadedUrl);
         } else {
-          console.error("Image upload response is missing the URL");
         }
       } catch (error) {
-        console.error("Error uploading image:", error);
       }
     }
   };
@@ -73,7 +68,6 @@ function BannerDetail({ banner, onBack }: BannerDetailProps) {
 
   const handleSubmit = async () => {
     if (!banner.id || !partnerName || !partnerUrl || !thumbNail) {
-      console.log("Missing required fields.");
       return;
     }
 
@@ -84,7 +78,6 @@ function BannerDetail({ banner, onBack }: BannerDetailProps) {
       thumbNail,
     };
 
-    console.log("Form Data:", formData);
 
     try {
       const response = await fetch("/api/admin/updatebanner", {
@@ -99,10 +92,8 @@ function BannerDetail({ banner, onBack }: BannerDetailProps) {
         alert("배너 정보가 성공적으로 업데이트되었습니다.");
         onBack();
       } else {
-        console.error("Failed to update banner information");
       }
     } catch (error) {
-      console.error("Error updating banner information:", error);
     }
   };
 

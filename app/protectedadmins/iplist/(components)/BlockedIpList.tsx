@@ -29,13 +29,11 @@ function BlockedIpList() {
         setTotalElements(result.data.length);
         setTotalPages(Math.ceil(result.data.length / size));
       } else {
-        console.error("Expected data array, received:", result.data);
-        toast.error("Failed to load IP list: invalid data format.");
+        
       }
       setSelectedIps([]);
     } catch (error) {
-      console.error("Error fetching IP list data:", error);
-      toast.error("Failed to load IP list.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 
@@ -80,8 +78,7 @@ function BlockedIpList() {
       toast.success("선택한 IP가 삭제되었습니다.");
       fetchData();
     } catch (error) {
-      console.error("Error deleting IPs:", error);
-      toast.error("삭제에 실패했습니다.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 
@@ -99,8 +96,7 @@ function BlockedIpList() {
         throw new Error("IP 삭제 실패");
       }
     } catch (error) {
-      console.error("Error deleting selected IPs:", error);
-      toast.error("An error occurred while deleting the selected IPs.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   }
 
@@ -125,8 +121,7 @@ function BlockedIpList() {
       toast.success("IP가 성공적으로 추가되었습니다.");
       fetchData();
     } catch (error) {
-      console.error("Error saving IP:", error);
-      toast.error("IP 추가에 실패했습니다.");
+      toast.error('서버에 문제가 발생했습니다')
     }
   };
 

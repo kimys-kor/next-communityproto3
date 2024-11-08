@@ -70,7 +70,7 @@ const SignUpForm: React.FC = () => {
   };
 
   return (
-    <div className="w-full flex flex-col gap-10 justify-center items-center">
+    <div className="w-full flex flex-col gap-10 justify-center items-center mb-12">
       <article className="mt-5 w-full lg:w-auto flex flex-col justify-center items-center lg:items-start lg:px-20">
         <div className="w-80 flex justify-center items-center">
           <Link href={"/"}>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Login from "../login/Login";
+import LoginSide from "../login/LoginSide";
 import { IoCloseSharp } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdRefresh } from "react-icons/io";
@@ -21,7 +21,7 @@ import Link from "next/link";
 import { useUserStore } from "@/app/globalStatus/useUserStore";
 import Profile from "../Profile";
 import AuthMenu from "./AuthMenu";
-import { UserInfo } from "@/app/types";
+
 
 interface LinkItem {
   href: string;
@@ -167,7 +167,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           {showMore && <SidebarAdditionalMenu />}
           <article className="w-full table border-collapse">
             {userInfo?.role ? (
-              <Profile userInfo={userInfo} />
+              <div className="border-solid border border-gray-200">
+                <Profile userInfo={userInfo} />
+              </div>
             ) : (
               <AuthMenu setActiveTab={setActiveTab} />
             )}
@@ -179,7 +181,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           {activeTab === 1 && (
             <SidebarMainNav links={sidebarData} onClose={onClose} />
           )}
-          {activeTab === 2 && <Login />}
+          {activeTab === 2 && <LoginSide />}
         </article>
       </section>
     </div>

@@ -69,7 +69,9 @@ const Write: React.FC<WriteProps> = ({ title, postType }) => {
       if (result.status === "OK") {
         toast.success("게시물이 성공적으로 저장되었습니다!");
         router.push(`${basePath}`);
-      } else {
+      }else if(result.status === "406"){
+          toast.error("포인트가 부족합니다.")
+      }else {
         toast.error("게시물 저장에 실패했습니다.");
       }
     } catch (error) {

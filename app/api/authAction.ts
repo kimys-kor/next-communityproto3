@@ -119,16 +119,17 @@ export async function getCookie() {
 
 export async function removeCookie() {
   const cookieStore = cookies();
-
   cookieStore.set("Authorization", "", {
     secure: true,
     httpOnly: true,
     maxAge: -1,
+    path: "/",
   });
 
   cookieStore.set("refresh_token", "", {
     secure: true,
     httpOnly: true,
     maxAge: -1,
+    path: "/",
   });
 }

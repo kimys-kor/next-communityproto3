@@ -32,7 +32,6 @@ export async function POST(request: Request) {
           maxAge: 7200,
           sameSite: "none",
           path: "/",
-          domain: "ggongpang.com"
         });
       }
 

@@ -17,7 +17,6 @@ export async function middleware(request: NextRequest) {
   }
 
   if (!refreshToken) {
-    console.warn("Missing refresh token.");
     return NextResponse.next({ request: { headers: requestHeaders } });
   }
 

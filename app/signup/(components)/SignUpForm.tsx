@@ -5,6 +5,7 @@ import Image from "next/image";
 import logo from "/public/images/logo.png";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 interface FormData {
   id: string;
@@ -32,6 +33,8 @@ const SignUpForm: React.FC = () => {
       phoneNumber: "",
     },
   });
+
+  const router = useRouter();
 
   const password = watch("password");
   const phoneNumber = watch("phoneNumber");
@@ -64,6 +67,7 @@ const SignUpForm: React.FC = () => {
 
       const result = await response.json();
       toast.success("회원가입이 완료되었습니다!");
+      router.push(`/`);
     } catch (error) {
       toast.error('서버에 문제가 발생했습니다')
     }

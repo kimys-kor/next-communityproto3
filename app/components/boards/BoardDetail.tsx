@@ -1,33 +1,37 @@
-import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import BoardDetailClient from "./BoardDetailClient";
 import { fetchInitialBoardContent, fetchInitialComments } from "@/app/utils";
 
-const BoardDetail: React.FC = async () => {
-  const headersList = headers();
-  const headerPathname = headersList.get("x-pathname");
-  const id = headerPathname?.split("/").pop() || "";
+interface BoardDetailProps {
+  boardId: string;
+}
 
-  if (!id) {
+const BoardDetail: React.FC<BoardDetailProps> = async ({ boardId }) => {
+  if (!boardId) {
     return notFound();
   }
 
-  const boardContent = await fetchInitialBoardContent(id);
-  const initialCommentsData = await fetchInitialComments(id, 0, 12);
+  try {
+    const boardContent = await fetchInitialBoardContent(boardId);
+    const initialCommentsData = await fetchInitialComments(boardId, 0, 12);
 
-  if (!boardContent || !initialCommentsData) {
+    if (!boardContent || !initialCommentsData) {
+      return notFound();
+    }
+
+    return (
+      <div>
+        <BoardDetailClient
+          content={boardContent}
+          boardId={boardId}
+          initialCommentsData={initialCommentsData}
+        />
+      </div>
+    );
+  } catch (error) {
+    console.error("Failed to fetch data:", error);
     return notFound();
   }
-
-  return (
-    <div>
-      <BoardDetailClient
-        content={boardContent}
-        boardId={id}
-        initialCommentsData={initialCommentsData}
-      />
-    </div>
-  );
 };
 
 export default BoardDetail;

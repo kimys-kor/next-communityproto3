@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import { useUserStore } from "@/app/globalStatus/useUserStore";
 import { FaTrash, FaArrowRight } from "react-icons/fa";
 import TransferPopup from "@/app/components/boards/TransferPopup";
-import { formatDate } from "@/app/utils";
+
 
 interface BoardClientProps {
   initialItems: BoardItem[];
@@ -248,7 +248,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
                 </div>
               </td>
               <td className="w-20 py-4 px-2 text-center">{boardItem.nickname}</td>
-              <td className="hidden md:table-cell w-32 py-4 px-2 text-center">{formatDate(boardItem.createdDt.toString())}</td>
+              <td className="hidden md:table-cell w-32 py-4 px-2 text-center">{boardItem.createdDt.toString()}</td>
               <td className="hidden md:table-cell w-20 py-4 px-2 text-center">{boardItem.hit}</td>
               <td className="hidden md:table-cell w-20 py-4 px-2 text-center">{boardItem.likes}</td>
             </tr>
@@ -276,7 +276,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
             </div>
             <div className="flex justify-start gap-2 mt-2 text-xs text-gray-600">
               <span>{boardItem.nickname}</span>
-              <span>{formatDate(boardItem.createdDt.toString())}</span>
+              <span>{boardItem.createdDt.toString()}</span>
               <span>조회 {boardItem.hit}</span>
               <span>추천 {boardItem.likes}</span>
             </div>

@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import Paging from "../Paging";
-import { formatDate } from "@/app/utils";
 import { Comment } from "@/app/types";
 import { useAuthStore } from "@/app/globalStatus/useAuthStore";
 import { useUserStore } from "@/app/globalStatus/useUserStore";
@@ -260,7 +259,7 @@ const CommentPageClient: React.FC<CommentPageClientProps> = ({
                     </div>
                   )}
                   <div className="flex gap-2">
-                    <p>{formatDate(item.createdDt)}</p>
+                    <p>{item.createdDt}</p>
                   </div>
                 </div>
               </div>

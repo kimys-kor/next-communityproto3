@@ -7,7 +7,6 @@ import { BiCommentDetail } from "react-icons/bi";
 import { GrView } from "react-icons/gr";
 import { LiaThumbsUp, LiaThumbsDown } from "react-icons/lia";
 import { HiBars3 } from "react-icons/hi2";
-import { formatDate } from "@/app/utils";
 import { BoardDetailClientProps, Comment } from "@/app/types";
 import DOMPurify from "isomorphic-dompurify";
 import { useUserStore } from "@/app/globalStatus/useUserStore";
@@ -91,7 +90,7 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
           </div>
           <div className="flex gap-1 truncate px-2">
             <p className="font-light text-[#2C4AB6]">
-              {formatDate(content.createdDt.toString())}
+              {content.createdDt.toString()}
             </p>
           </div>
         </article>

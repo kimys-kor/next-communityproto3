@@ -173,7 +173,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
   };
 
   return (
-    <section className="flex flex-col gap-1 mt-3">
+    <section className="w-full flex flex-col gap-1 mt-3">
       <div className="flex items-center gap-2 mb-4 p-2 bg-white dark:bg-gray-800 rounded-md border border-solid border-gray-200 dark:border-gray-700 shadow-sm">
         <label htmlFor="searchField" className="sr-only">
           검색 필드 선택
@@ -257,64 +257,62 @@ const BoardClient: React.FC<BoardClientProps> = ({
       </header>
 
       {/* Table rendering the board items */}
-      <table className="min-w-full bg-white text-[14px]">
-        <thead className="bg-[#F2F5FF]">
-          <tr className="flex border-t-2 border-[#2C4AB6] text-[#2C4AB6] font-semibold">
-            {userInfo?.sck && (
-              <th className="w-14 py-3 px-2 text-center">선택</th>
-            )}
-            <th className="grow py-3 px-2 text-center">제목</th>
-            <th className="w-20 py-3 px-2 text-center">이름</th>
-            <th className="hidden md:block w-32 py-3 px-2 text-center">날짜</th>
-            <th className="hidden md:block w-20 py-3 px-2 text-center">조회</th>
-            <th className="hidden md:block w-20 py-3 px-2 text-center">추천</th>
-          </tr>
-        </thead>
-        <tbody>
-          {boardList.map((boardItem) => (
-            <tr
-              key={boardItem.id}
-              className="border-b border-solid border-gray-200 flex bg-white hover:bg-[#f1f3fa] hover:text-blue"
-            >
-              {userInfo?.sck && (
-                <td className="w-10 py-4 px-2 text-center">
-                  <input
-                    type="checkbox"
-                    checked={selectedItems.includes(boardItem.id)}
-                    onChange={() => handleSelectItem(boardItem.id)}
-                    className="h-4 w-4"
-                  />
-                </td>
+      <table className="w-full bg-white text-[14px] table-fixed">
+  <thead className="bg-[#F2F5FF]">
+    <tr className="flex border-t-2 border-[#2C4AB6] text-[#2C4AB6] font-semibold">
+      {userInfo?.sck && (
+        <th className="w-14 py-3 px-2 text-center">선택</th>
+      )}
+      <th className="grow py-3 px-2 text-center truncate">제목</th>
+      <th className="w-20 py-3 px-2 text-center truncate">이름</th>
+      <th className="hidden md:block w-32 py-3 px-2 text-center">날짜</th>
+      <th className="hidden md:block w-20 py-3 px-2 text-center">조회</th>
+      <th className="hidden md:block w-20 py-3 px-2 text-center">추천</th>
+    </tr>
+  </thead>
+  <tbody>
+    {boardList.map((boardItem) => (
+      <tr
+        key={boardItem.id}
+        className="border-b border-solid border-gray-200 flex bg-white hover:bg-[#f1f3fa] hover:text-blue"
+      >
+        {userInfo?.sck && (
+          <td className="w-10 py-4 px-2 text-center">
+            <input
+              type="checkbox"
+              checked={selectedItems.includes(boardItem.id)}
+              onChange={() => handleSelectItem(boardItem.id)}
+              className="h-4 w-4"
+            />
+          </td>
+        )}
+        <td className="grow w-[70%] py-4 px-2 font-medium truncate">
+          <div className="flex items-center gap-1 leading-5">
+            {isNew(boardItem.createdDt.toString()) && <NewIcon />}
+            <Link href={`${pathname}/${boardItem.id}`} className="truncate max-w-full">
+              {boardItem.title}
+              {boardItem.replyNum > 0 && (
+                <span className="text-blue ml-2 text-sm">+{boardItem.replyNum}</span>
               )}
-              <td className="grow py-4 px-2 font-medium">
-                <div className="flex items-center gap-1 leading-5">
-                  {isNew(boardItem.createdDt.toString()) && <NewIcon />}
-                  <Link className="" href={`${pathname}/${boardItem.id}`}>
-                    {boardItem.title}
-                    {boardItem.replyNum > 0 && (
-                      <span className="text-blue ml-2 text-sm">
-                        +{boardItem.replyNum}
-                      </span>
-                    )}
-                  </Link>
-                </div>
-              </td>
-              <td className="truncate w-20 py-4 px-2 text-center flex items-center">
-                {boardItem.nickname}
-              </td>
-              <td className="hidden md:block w-32 py-4 px-2 text-center">
-                {boardItem.createdDt.toString()}
-              </td>
-              <td className="hidden md:block w-20 py-4 px-2 text-center">
-                {boardItem.hit}
-              </td>
-              <td className="hidden md:block w-20 py-4 px-2 text-center">
-                {boardItem.likes}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            </Link>
+          </div>
+        </td>
+        <td className="truncate w-20 py-4 px-2 text-center flex items-center">
+          {boardItem.nickname}
+        </td>
+        <td className="hidden md:block w-32 py-4 px-2 text-center">
+          {boardItem.createdDt.toString()}
+        </td>
+        <td className="hidden md:block w-20 py-4 px-2 text-center">
+          {boardItem.hit}
+        </td>
+        <td className="hidden md:block w-20 py-4 px-2 text-center">
+          {boardItem.likes}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
       {writeBoolean
         ? userInfo?.role && (

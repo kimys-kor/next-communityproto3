@@ -24,7 +24,7 @@ const HomeBoardWeekCard = async () => {
           >
             <div className="w-[90%] truncate flex justify-center items-center gap-2">
               <span
-                className="w-[83px] truncate flex items-center gap-1 rounded-2xl cursor-pointer text-white text-xs px-[6px] py-[4px] transition-all shadow-lg"
+                className="w-[85px] truncate flex items-center gap-1 rounded-2xl cursor-pointer text-white text-xs px-[6px] py-[4px] transition-all shadow-lg"
                 style={{
                   background: "linear-gradient(45deg, #0038FF, #1494e9)",
                   boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
@@ -33,7 +33,7 @@ const HomeBoardWeekCard = async () => {
                 {categoryIcons[item.postType]}
                 {categoryMap[item.postType]}
               </span>
-              <Link className="w-[80%]" href={getPostUrl(item.postType, item.id)}>
+              <Link className="w-[70%]" href={getPostUrl(item.postType, item.id)}>
                 <p className="text-sm cursor-pointer hover:underline truncate">
                   {item.title}
                 </p>

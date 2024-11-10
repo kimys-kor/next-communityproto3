@@ -91,8 +91,7 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
           </div>
           <div className="flex gap-1 truncate px-2">
             <p className="font-light text-[#2C4AB6]">
-              {/* {formatDate(content.createdDt)} */}
-              {content.createdDt}
+              {formatDate(content.createdDt.toString())}
             </p>
           </div>
         </article>

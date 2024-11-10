@@ -22,6 +22,22 @@ import {
 import { Banner, BoardItem, Member, MemberDataResponse } from "./types";
 import { BoardItem2 } from "./types";
 
+export const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const today = new Date();
+
+  const isToday =
+    date.getFullYear() === today.getFullYear() &&
+    date.getMonth() === today.getMonth() &&
+    date.getDate() === today.getDate();
+
+  if (isToday) {
+    return `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+  } else {
+    return `${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+  }
+};
+
 export const categoryMap: { [key: number]: string } = {
   2: "축구분석",
   3: "야구분석",
@@ -421,21 +437,7 @@ export const categoryIcons: { [key: number]: JSX.Element } = {
   10: <FaExclamationTriangle />,
 };
 
-export const formatDate = (createdDt: string) => {
-  const createdDate = new Date(createdDt);
-  const now = new Date();
-  const diffInMs = now.getTime() - createdDate.getTime();
-  const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
 
-  if (diffInHours < 24) {
-    return `${diffInHours}시간 전`;
-  } else {
-    const year = createdDate.getFullYear();
-    const month = String(createdDate.getMonth() + 1).padStart(2, "0");
-    const day = String(createdDate.getDate()).padStart(2, "0");
-    return `${year}.${month}.${day}`;
-  }
-};
 
 export interface MenuItem {
   name: string;

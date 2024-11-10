@@ -175,10 +175,9 @@ const BoardClient: React.FC<BoardClientProps> = ({
 
   return (
     <section className="w-full flex flex-col gap-1 mt-3">
+      {/* Search and Header */}
       <div className="flex items-center gap-2 mb-4 p-2 bg-white dark:bg-gray-800 rounded-md border border-solid border-gray-200 dark:border-gray-700 shadow-sm">
-        <label htmlFor="searchField" className="sr-only">
-          검색 필드 선택
-        </label>
+        <label htmlFor="searchField" className="sr-only">검색 필드 선택</label>
         <select
           id="searchField"
           className="p-1 sm:p-2 border border-solid border-gray-300 dark:border-gray-600 rounded bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-xs sm:text-sm w-20 sm:w-auto"
@@ -193,10 +192,8 @@ const BoardClient: React.FC<BoardClientProps> = ({
           <option value="status">상태</option>
           <option value="createdDt">날짜</option>
         </select>
-  
-        <label htmlFor="searchQuery" className="sr-only">
-          검색어 입력
-        </label>
+        
+        <label htmlFor="searchQuery" className="sr-only">검색어 입력</label>
         <input
           id="searchQuery"
           type="text"
@@ -213,50 +210,9 @@ const BoardClient: React.FC<BoardClientProps> = ({
           검색
         </button>
       </div>
-      <header className="flex justify-between items-center w-full text-xs md:text-sm text-[#555555]">
-        <div className="flex gap-2">
-          <div className="text-[#555555] text-sm flex items-center gap-2">
-            총
-            <span className="text-[#2C4AB6] font-semibold">{totalElements}</span>
-            건
-          </div>
-          <div className="text-[#555555] text-sm">
-            {"("}
-            <span className="text-[#2C4AB6] font-semibold">{page}</span> /{" "}
-            <span>{totalPages}</span> 페이지{")"}
-          </div>
-        </div>
-        {userInfo?.sck && (
-          <div className="flex items-center gap-5">
-            <label className="flex items-center cursor-pointer text-purple-600 text-sm gap-1 hover:text-purple-800">
-              <input
-                type="checkbox"
-                checked={selectAll}
-                onChange={handleSelectAll}
-                className="hidden"
-              />
-              <span>전체선택</span>
-            </label>
-            <button
-              onClick={handleMoveSelected}
-              className="flex items-center gap-1 text-teal-600 text-sm hover:text-teal-800"
-            >
-              <FaArrowRight />
-              <span>이동</span>
-            </button>
-            <button
-              onClick={handleDeleteSelected}
-              className="flex items-center gap-1 text-red-600 text-sm hover:text-red-800"
-            >
-              <FaTrash />
-              <span>삭제</span>
-            </button>
-          </div>
-        )}
-      </header>
   
-      {/* Table rendering the board items */}
-      <table className="w-full bg-white text-[14px] table-fixed">
+      {/* Desktop Layout */}
+      <table className="w-full bg-white text-[14px] table-fixed hidden sm:table">
         <thead className="bg-[#F2F5FF]">
           <tr className="border-t-2 border-[#2C4AB6] text-[#2C4AB6] font-semibold">
             {userInfo?.sck && <th className="w-14 py-3 px-2 text-center">선택</th>}
@@ -269,10 +225,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
         </thead>
         <tbody>
           {boardList.map((boardItem) => (
-            <tr
-              key={boardItem.id}
-              className="border-b border-solid border-gray-200 bg-white hover:bg-[#f1f3fa] hover:text-blue"
-            >
+            <tr key={boardItem.id} className="border-b border-gray-200 bg-white hover:bg-[#f1f3fa] hover:text-blue">
               {userInfo?.sck && (
                 <td className="w-10 py-4 px-2 text-center">
                   <input
@@ -295,50 +248,57 @@ const BoardClient: React.FC<BoardClientProps> = ({
                 </div>
               </td>
               <td className="w-20 py-4 px-2 text-center">{boardItem.nickname}</td>
-              <td className="hidden md:table-cell w-32 py-4 px-2 text-center">
-                {formatDate(boardItem.createdDt.toString())}
-              </td>
+              <td className="hidden md:table-cell w-32 py-4 px-2 text-center">{formatDate(boardItem.createdDt.toString())}</td>
               <td className="hidden md:table-cell w-20 py-4 px-2 text-center">{boardItem.hit}</td>
               <td className="hidden md:table-cell w-20 py-4 px-2 text-center">{boardItem.likes}</td>
             </tr>
           ))}
         </tbody>
       </table>
-      {writeBoolean ? (
-        userInfo?.role && (
-          <span className="mt-5 w-full flex justify-end">
-            <Link href={`${pathname}/write`}>
-              <button className="bg-blue text-white hover:bg-mediumblue rounded-sm text-[13px] px-3 py-3">
-                글작성하기
-              </button>
-            </Link>
-          </span>
-        )
-      ) : (
-        userInfo?.sck && (
-          <span className="mt-5 w-full flex justify-end">
-            <Link href={`${pathname}/write`}>
-              <button className="bg-blue text-white hover:bg-mediumblue rounded-sm text-[13px] px-3 py-3">
-                글작성하기
-              </button>
-            </Link>
-          </span>
-        )
+  
+      {/* Mobile Layout */}
+      <div className="sm:hidden flex flex-col gap-2">
+        {boardList.map((boardItem) => (
+          <div key={boardItem.id} className="w-full border border-gray-200 rounded-md p-3 shadow-sm hover:bg-[#f1f3fa]">
+            <div className="flex justify-between items-center">
+              {userInfo?.sck && (
+                <input
+                  type="checkbox"
+                  checked={selectedItems.includes(boardItem.id)}
+                  onChange={() => handleSelectItem(boardItem.id)}
+                  className="h-4 w-4 mr-2"
+                />
+              )}
+              <Link href={`${pathname}/${boardItem.id}`} className="font-medium truncate flex-1">
+                {boardItem.title}
+              </Link>
+                <span className="text-blue text-sm">+{boardItem.replyNum}</span>
+            </div>
+            <div className="flex justify-start gap-2 mt-2 text-xs text-gray-600">
+              <span>{boardItem.nickname}</span>
+              <span>{formatDate(boardItem.createdDt.toString())}</span>
+              <span>조회 {boardItem.hit}</span>
+              <span>추천 {boardItem.likes}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+  
+      {/* Write Button and Paging */}
+      {writeBoolean && userInfo?.role && (
+        <span className="mt-5 w-full flex justify-end">
+          <Link href={`${pathname}/write`}>
+            <button className="bg-blue text-white hover:bg-mediumblue rounded-sm text-[13px] px-3 py-3">
+              글작성하기
+            </button>
+          </Link>
+        </span>
       )}
   
-      <Paging
-        page={page}
-        size={size}
-        totalElements={totalElements}
-        setPage={handlePageChange}
-        scroll="top"
-      />
+      <Paging page={page} size={size} totalElements={totalElements} setPage={handlePageChange} scroll="top" />
   
       {showTransferPopup && (
-        <TransferPopup
-          onClose={() => setShowTransferPopup(false)}
-          onConfirm={handleTransferConfirm}
-        />
+        <TransferPopup onClose={() => setShowTransferPopup(false)} onConfirm={handleTransferConfirm} />
       )}
     </section>
   );

@@ -16,11 +16,13 @@ async function HomeBoardDayCard() {
         {boardList.map((item, index) => (
           <div
             key={item.id}
-            className={`w-full py-2 flex justify-between items-center transition-transform duration-200 ${index !== boardList.length - 1 ? "border-b border-slate-200 border-solid" : ""} hover:bg-lightblue hover:scale-105`}
+            className={`w-full py-2 flex justify-between items-center${
+              index !== boardList.length - 1 ? "border-b border-slate-200 border-solid" : ""
+            } hover:bg-lightblue`}
           >
-            <div className="flex justify-center items-center gap-2">
+            <div className="w-[90%] truncate flex items-center gap-2">
               <span
-                className="flex items-center gap-1 rounded-2xl cursor-pointer text-white text-xs px-[6px] py-[4px] transition-all shadow-lg"
+                className="w-[83px] truncate flex items-center gap-1 rounded-2xl cursor-pointer text-white text-xs px-[6px] py-[4px] transition-all shadow-lg"
                 style={{
                   background: "linear-gradient(45deg, #AF41F0, #ec18ec)",
                   boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
@@ -29,14 +31,14 @@ async function HomeBoardDayCard() {
                 {categoryIcons[item.postType]}
                 {categoryMap[item.postType]}
               </span>
-              <Link href={getPostUrl(item.postType, item.id)}>
-                <p className="text-sm cursor-pointer hover:underline">
+              <Link className="w-[80%]" href={getPostUrl(item.postType, item.id)}>
+                <p className="text-sm cursor-pointer hover:underline truncate">
                   {item.title}
                 </p>
               </Link>
             </div>
-            <div className="flex justify-center items-center gap-1">
-              <div className="truncate text-xs text-gray-500 flex gap-1 items-center">
+            <div className="w-[10%] flex justify-center items-center gap-1">
+              <div className="text-xs text-gray-500 flex gap-1 items-center">
                 <GrView color="gray" /> {item.hit}
               </div>
             </div>

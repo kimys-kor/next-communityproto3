@@ -50,7 +50,7 @@ const HomeBannerClient: React.FC<BannerListProps> = ({ banners }) => {
 
   if (bannerList.length === 0) {
     return (
-      <div className="text-center text-gray-500">No banners available.</div>
+      null
     );
   }
 

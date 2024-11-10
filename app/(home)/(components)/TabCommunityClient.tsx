@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { tabsCommunity } from "@/app/utils";
@@ -51,15 +50,14 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
           content = content.map((item: any) => ({
             id: item.id,
             title: item.title,
-            img: `/images/dog${(item.id % 4) + 1}.PNG`,
-            date: "24.06.12",
-            writer: item.nickname || "관리자",
+            date: new Date("2024-06-12").toLocaleDateString("ko-KR", { month: "2-digit", day: "2-digit" }),
+            writer: item.nickname
           }));
         }
 
         setTabContent(content);
       } catch (error) {
-        toast.error('서버에 문제가 발생했습니다')
+        toast.error("서버에 문제가 발생했습니다");
       }
     };
 
@@ -78,8 +76,11 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
           {tabsCommunity.map((tab, index) => (
             <div
               key={index}
-              className={`border-solid border rounded-2xl cursor-pointer font-semibold text-sm px-2 py-1 transition-all hover:text-blue
-                ${activeTab === index ? "text-blue border-blue bg-[#F2F5FF]" : "text-[#999999] border-[#999999]"}`}
+              className={`border-solid border rounded-2xl cursor-pointer font-semibold text-sm px-2 py-1 transition-all hover:text-blue ${
+                activeTab === index
+                  ? "text-blue border-blue bg-[#F2F5FF]"
+                  : "text-[#999999] border-[#999999]"
+              }`}
               onClick={() => setActiveTab(index)}
             >
               <div className="flex justify-center items-center gap-1">
@@ -89,6 +90,7 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
             </div>
           ))}
         </div>
+
         {/* Tab content */}
         <div className="text-sm w-full">
           {activeTab === 0 ? (
@@ -104,10 +106,12 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
                     src={item.img}
                     width={100}
                     height={130}
-                    alt={`Dog ${index + 1}`}
+                    alt={`photo content ${item.title}`}
                   />
                   <div className="text-center w-full">
-                    <div className="text-base font-semibold">{item.title}</div>
+                    <div className="text-base font-semibold truncate">
+                      {item.title}
+                    </div>
                     <div className="flex justify-center">
                       <span className="w-1/2 truncate text-xs text-gray-500">
                         {item.date}
@@ -128,8 +132,8 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
                   activeTab === 1
                     ? "/event"
                     : activeTab === 2
-                      ? "/community/free"
-                      : "/community/pickster"
+                    ? "/community/free"
+                    : "/community/pickster"
                 }/${item.id}`}
                 className={`px-3 flex justify-between hover:bg-slate-200 hover:cursor-pointer ${
                   index !== (tabContent as any[]).length - 1
@@ -138,9 +142,13 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
                 }`}
               >
                 <div className="flex gap-2 items-center p-2">
-                  <div className="text-sm font-medium">{item.title}</div>
+                  <div className="text-sm font-medium truncate">
+                    {item.title}
+                  </div>
                 </div>
-                <div className="flex justify-center items-center">06-13</div>
+                <div className="flex justify-center items-center text-xs text-gray-500">
+                  {item.date}
+                </div>
               </Link>
             ))
           )}

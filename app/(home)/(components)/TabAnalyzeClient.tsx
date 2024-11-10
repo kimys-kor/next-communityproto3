@@ -5,6 +5,7 @@ import Link from "next/link";
 import { tabsAnalyze } from "@/app/utils";
 import { BoardItem } from "@/app/types";
 import toast from "react-hot-toast";
+import NewIcon from "@/app/components/NewIcon";
 
 interface TabAnalyzeClientProps {
   initialTab: number;
@@ -39,7 +40,7 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
         const data = await response.json();
         setBoardList(data.data.content);
       } catch (error) {
-        toast.error("서버에 문제가 발생했습니다")
+        toast.error("서버에 문제가 발생했습니다");
       }
     };
 
@@ -54,7 +55,7 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
       <div className="w-full flex flex-col">
         {/* Tab buttons */}
         <div className="h-12 px-3 flex justify-start items-center gap-1 rounded-t bg-[#FAFAFA]">
-          {tabsAnalyze.map((tab, index) => (
+        {tabsAnalyze.map((tab, index) => (
             <div
               key={index}
               className={`border-solid border rounded-2xl cursor-pointer font-semibold text-sm px-2 py-1 transition-all hover:text-blue
@@ -68,35 +69,46 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
             </div>
           ))}
         </div>
+
         {/* Tab content */}
         <div className="text-sm w-full">
-          {boardList.map((item) => (
-            <Link
-              key={item.id}
-              href={
-                activeTab === 0
-                  ? `/sport/${item.id}`
-                  : activeTab === 1
+          {boardList.map((item) => {
+            // Check if the created date is within 24 hours
+            const isNew = new Date().getTime() - new Date(item.createdDt).getTime() < 86400000;
+
+            return (
+              <Link
+                key={item.id}
+                href={
+                  activeTab === 0
+                    ? `/sport/${item.id}`
+                    : activeTab === 1
                     ? `/sport/base/${item.id}`
                     : activeTab === 2
-                      ? `/sport/basket/${item.id}`
-                      : `/sport/volley/${item.id}`
-              }
-            >
-              <div
-                className={`px-3 flex justify-between hover:bg-slate-200 hover:cursor-pointer ${
-                  item.id !== boardList[boardList.length - 1]?.id
-                    ? "border-b border-dashed border-slate-200"
-                    : ""
-                }`}
+                    ? `/sport/basket/${item.id}`
+                    : `/sport/volley/${item.id}`
+                }
               >
-                <div className="flex gap-2 items-center p-2">
-                  <div className="text-sm font-medium">{item.title}</div>
+                <div
+                  className={`px-3 flex justify-between items-center hover:bg-slate-200 hover:cursor-pointer ${
+                    item.id !== boardList[boardList.length - 1]?.id
+                      ? "border-b border-dashed border-slate-200"
+                      : ""
+                  }`}
+                >
+                  <div className="flex gap-2 items-center py-2 w-full">
+                    <div className="text-sm font-medium truncate w-[80%] truncate">
+                      {isNew && <NewIcon />}
+                      {item.title}
+                    </div>
+                    <div className="text-sm text-gray-600 truncate w-[20%] truncate flex justify-end">
+                      <p>{item.nickname}</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex justify-center items-center">06-13</div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </div>

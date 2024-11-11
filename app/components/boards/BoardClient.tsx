@@ -210,6 +210,49 @@ const BoardClient: React.FC<BoardClientProps> = ({
           검색
         </button>
       </div>
+      <header className="flex justify-between items-center w-full text-xs md:text-sm text-[#555555]">
+        <div className="flex gap-2">
+          <div className="text-[#555555] text-sm flex items-center gap-2">
+            총
+            <span className="text-[#2C4AB6] font-semibold">
+              {totalElements}
+            </span>
+            건
+          </div>
+          <div className="text-[#555555] text-sm">
+            {"("}
+            <span className="text-[#2C4AB6] font-semibold">{page}</span> /{" "}
+            <span>{totalPages}</span> 페이지{")"}
+          </div>
+        </div>
+        {userInfo?.sck && (
+          <div className="flex items-center gap-5">
+            <label className="flex items-center cursor-pointer text-purple-600 text-sm gap-1 hover:text-purple-800">
+              <input
+                type="checkbox"
+                checked={selectAll}
+                onChange={handleSelectAll}
+                className="hidden"
+              />
+              <span>전체선택</span>
+            </label>
+            <button
+              onClick={handleMoveSelected}
+              className="flex items-center gap-1 text-teal-600 text-sm hover:text-teal-800"
+            >
+              <FaArrowRight />
+              <span>이동</span>
+            </button>
+            <button
+              onClick={handleDeleteSelected}
+              className="flex items-center gap-1 text-red-600 text-sm hover:text-red-800"
+            >
+              <FaTrash />
+              <span>삭제</span>
+            </button>
+          </div>
+        )}
+      </header>
   
       {/* Desktop Layout */}
       <table className="w-full bg-white text-[14px] table-fixed hidden sm:table">
@@ -284,16 +327,25 @@ const BoardClient: React.FC<BoardClientProps> = ({
         ))}
       </div>
   
-      {/* Write Button and Paging */}
-      {writeBoolean && userInfo?.role && (
-        <span className="mt-5 w-full flex justify-end">
-          <Link href={`${pathname}/write`}>
-            <button className="bg-blue text-white hover:bg-mediumblue rounded-sm text-[13px] px-3 py-3">
-              글작성하기
-            </button>
-          </Link>
-        </span>
-      )}
+      {writeBoolean
+        ? userInfo?.role && (
+            <span className="mt-5 w-full flex justify-end">
+              <Link href={`${pathname}/write`}>
+                <button className="bg-blue text-white hover:bg-mediumblue rounded-sm text-[13px] px-3 py-3">
+                  글작성하기
+                </button>
+              </Link>
+            </span>
+          )
+        : userInfo?.sck && (
+            <span className="mt-5 w-full flex justify-end">
+              <Link href={`${pathname}/write`}>
+                <button className="bg-blue text-white hover:bg-mediumblue rounded-sm text-[13px] px-3 py-3">
+                  글작성하기
+                </button>
+              </Link>
+            </span>
+          )}
   
       <Paging page={page} size={size} totalElements={totalElements} setPage={handlePageChange} scroll="top" />
   

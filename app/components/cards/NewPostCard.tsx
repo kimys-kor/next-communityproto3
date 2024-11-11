@@ -32,18 +32,6 @@ const NewPostCard = async () => {
         <div className="flex gap-2 justify-center items-center">
           <h1 className="text-lg font-bold">최근글</h1>
         </div>
-        {/* <div className="group cursor-pointer bg-semiblue w-6 h-6 flex justify-center items-center rounded-full hover:bg-blue">
-          <svg
-            width="13"
-            height="13"
-            viewBox="0 0 100 100"
-            xmlns="http://www.w3.org/2000/svg"
-            className="fill-current text-blue group-hover:text-white transition-colors cursor-pointer"
-          >
-            <rect x="45" y="10" width="10" height="80" />
-            <rect x="10" y="45" width="80" height="10" />
-          </svg>
-        </div> */}
       </div>
       {boardList.map((item, index) => (
         <div
@@ -52,17 +40,17 @@ const NewPostCard = async () => {
             index !== boardList.length - 1
               ? "border-b border-dashed border-slate-200"
               : ""
-          } hover:bg-blue-50`}
+          } hover:bg-semiblue`}
         >
-          <div className="flex gap-2">
+          <div className="flex gap-1 items-center flex-1 overflow-hidden">
             <NewIcon />
-            <span className="flex justify-start items-center gap-2">
-              <Link href={`/post/${item.id}`}>
-                <p className="truncate text-sm cursor-pointer hover:underline">
+            <div className="flex-1 min-w-0 flex items-center overflow-hidden">
+              <Link href={`/post/${item.id}`} className="flex-1 min-w-0">
+                <p className="truncate text-sm cursor-pointer hover:underline truncate">
                   {item.title}
                 </p>
               </Link>
-              <span className="truncate text-[10px] flex justify-center items-center gap-1">
+              <span className="text-[10px] flex items-center gap-1">
                 <svg
                   width="10"
                   height="10"
@@ -77,9 +65,9 @@ const NewPostCard = async () => {
                   {item.replyNum}
                 </span>
               </span>
-            </span>
+            </div>
           </div>
-          <p className="text-sm">{item.nickname}</p>
+          <p className="text-sm truncate w-12 text-right">{item.nickname}</p>
         </div>
       ))}
     </div>

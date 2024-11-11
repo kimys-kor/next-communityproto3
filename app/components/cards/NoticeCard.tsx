@@ -33,18 +33,6 @@ const NoticeCard = async () => {
           <Image src={noticeIcon} width={27} height={27} alt="menuIcon" />
           <h1 className="text-lg font-bold">공지사항</h1>
         </div>
-        {/* <div className="group cursor-pointer bg-semiblue w-6 h-6 flex justify-center items-center rounded-full hover:bg-blue">
-          <svg
-            width="13"
-            height="13"
-            viewBox="0 0 100 100"
-            xmlns="http://www.w3.org/2000/svg"
-            className="fill-current text-blue group-hover:text-white transition-colors cursor-pointer"
-          >
-            <rect x="45" y="10" width="10" height="80" />
-            <rect x="10" y="45" width="80" height="10" />
-          </svg>
-        </div> */}
       </div>
       {boardList.map((item, index) => (
         <div
@@ -55,7 +43,7 @@ const NoticeCard = async () => {
               : ""
           } hover:bg-blue-50`}
         >
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center flex-1 overflow-hidden">
             <span
               className="flex items-center gap-1 rounded-2xl cursor-pointer text-white text-xs px-[6px] py-[4px] transition-all shadow-lg"
               style={{
@@ -65,13 +53,13 @@ const NoticeCard = async () => {
             >
               공지사항
             </span>
-            <span className="flex justify-start items-center gap-2">
-              <Link href={`/post/${item.id}`}>
+            <div className="flex-1 min-w-0 flex items-center gap-2 overflow-hidden">
+              <Link href={`/post/${item.id}`} className="flex-1 min-w-0">
                 <p className="truncate text-sm cursor-pointer hover:underline">
                   {item.title}
                 </p>
               </Link>
-              <span className="truncate text-[10px] flex justify-center items-center gap-1">
+              <span className="text-[10px] flex items-center gap-1">
                 <svg
                   width="10"
                   height="10"
@@ -86,9 +74,9 @@ const NoticeCard = async () => {
                   {item.replyNum}
                 </span>
               </span>
-            </span>
+            </div>
           </div>
-          <p className="text-sm">{item.nickname}</p>
+          <p className="text-sm truncate w-12 text-right">{item.nickname}</p>
         </div>
       ))}
     </div>

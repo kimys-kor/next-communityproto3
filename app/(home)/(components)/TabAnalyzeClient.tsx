@@ -55,11 +55,14 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
       <div className="w-full flex flex-col">
         {/* Tab buttons */}
         <div className="h-12 px-3 flex justify-start items-center gap-1 rounded-t bg-[#FAFAFA]">
-        {tabsAnalyze.map((tab, index) => (
+          {tabsAnalyze.map((tab, index) => (
             <div
               key={index}
-              className={`border-solid border rounded-2xl cursor-pointer font-semibold text-sm px-2 py-1 transition-all hover:text-blue
-                ${activeTab === index ? "text-blue border-blue bg-[#F2F5FF]" : "text-[#999999] border-[#999999]"}`}
+              className={`border-solid border rounded-2xl cursor-pointer font-semibold text-sm px-2 py-1 transition-all hover:text-blue ${
+                activeTab === index
+                  ? "text-blue border-blue bg-[#F2F5FF]"
+                  : "text-[#999999] border-[#999999]"
+              }`}
               onClick={() => setActiveTab(index)}
             >
               <div className="flex justify-center items-center gap-1">
@@ -74,7 +77,9 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
         <div className="text-sm w-full">
           {boardList.map((item) => {
             // Check if the created date is within 24 hours
-            const isNew = new Date().getTime() - new Date(item.createdDt).getTime() < 86400000;
+            const isNew =
+              new Date().getTime() - new Date(item.createdDt).getTime() <
+              86400000;
 
             return (
               <Link
@@ -97,11 +102,11 @@ export const TabAnalyzeClient: React.FC<TabAnalyzeClientProps> = ({
                   }`}
                 >
                   <div className="flex gap-2 items-center py-2 w-full">
-                    <div className="text-sm font-medium truncate w-[80%] truncate">
+                    <div className="flex items-center gap-1 text-sm font-medium w-[80%] truncate">
                       {isNew && <NewIcon />}
-                      {item.title}
+                      <span className="truncate">{item.title}</span>
                     </div>
-                    <div className="text-sm text-gray-600 truncate w-[20%] truncate flex justify-end">
+                    <div className="text-sm text-gray-600 w-[20%] flex justify-end truncate">
                       <p>{item.nickname}</p>
                     </div>
                   </div>

@@ -69,27 +69,26 @@ function PointHistoryClient() {
   return (
     <div>
       {/* Search Controls */}
-      <div className="flex items-center gap-3 mb-6 p-3 bg-white rounded-md border border-solid border-gray-200 shadow-sm">
+      <div className="flex flex-col sm:flex-row items-center gap-3 mb-6 p-3 bg-white rounded-md border border-solid border-gray-200 shadow-sm">
         <select
-          className="p-2 border border-solid border-gray-300 rounded bg-gray-100 text-gray-700 text-sm"
+          className="p-2 border border-solid border-gray-300 rounded bg-gray-100 text-gray-700 text-xs sm:text-sm w-full sm:w-auto"
           value={searchField}
           onChange={(e) => setSearchField(e.target.value)}
         >
           <option value="all">전체</option>
-          <option value="username">유저 이름</option>
-          <option value="pointContent">포인트 내용</option>
-          <option value="createdDt">생성 날짜</option>
         </select>
+        
         <input
           type="text"
           placeholder="검색어 입력"
-          className="p-2 border border-solid border-gray-300 rounded w-64 text-gray-700 text-sm bg-gray-100"
+          className="p-2 border border-solid border-gray-300 rounded w-full sm:w-64 text-gray-700 text-xs sm:text-sm bg-gray-100"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
+        
         <button
           onClick={handleSearch}
-          className="px-4 py-2 bg-gray-600 text-white text-sm rounded-md font-medium"
+          className="w-full sm:w-auto px-4 py-2 bg-gray-600 text-white text-xs sm:text-sm rounded-md font-medium"
         >
           검색
         </button>

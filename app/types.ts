@@ -20,6 +20,7 @@ export interface BoardItem {
   likes: number;
   replyNum: number;
   createdDt: Date;
+  changedcreatedDt: string;
 }
 
 export interface BoardItem2 {

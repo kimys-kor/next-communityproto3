@@ -10,7 +10,6 @@ import { useUserStore } from "@/app/globalStatus/useUserStore";
 import { FaTrash, FaArrowRight } from "react-icons/fa";
 import TransferPopup from "@/app/components/boards/TransferPopup";
 
-
 interface BoardClientProps {
   initialItems: BoardItem[];
   initialPage: number;
@@ -34,7 +33,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
 
   const { userInfo } = useUserStore();
   const [boardList, setBoardList] = useState<BoardItem[]>(initialItems);
-  const [page, setPage] = useState(initialPage);
+  const [page, setPage] = useState(initialPage || 1); // Default to page 1 if initialPage is missing
   const [totalElements, setTotalElements] = useState(initialTotalElements);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [selectAll, setSelectAll] = useState(false);
@@ -67,13 +66,8 @@ const BoardClient: React.FC<BoardClientProps> = ({
   const handleSearch = () => {
     setCurrentPage(1);
     setKeyword(searchQuery);
+    fetchData(1, searchQuery);
   };
-
-  useEffect(() => {
-    const pageFromQuery = parseInt(searchParams.get("page") || "1", 10);
-    setPage(pageFromQuery);
-    fetchData(pageFromQuery, keyword);
-  }, [searchParams, keyword]);
 
   const handlePageChange = (newPage: number) => {
     router.replace(`${pathname}?page=${newPage}`);
@@ -135,7 +129,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
       setShowTransferPopup(false);
       router.refresh();
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("서버에 문제가 발생했습니다");
     }
   };
 
@@ -169,7 +163,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
       setSelectAll(false);
       toast.success("선택한 게시물이 성공적으로 삭제되었습니다.");
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("서버에 문제가 발생했습니다");
     }
   };
 
@@ -177,7 +171,9 @@ const BoardClient: React.FC<BoardClientProps> = ({
     <section className="w-full flex flex-col gap-1 mt-3">
       {/* Search and Header */}
       <div className="flex items-center gap-2 mb-4 p-2 bg-white dark:bg-gray-800 rounded-md border border-solid border-gray-200 dark:border-gray-700 shadow-sm">
-        <label htmlFor="searchField" className="sr-only">검색 필드 선택</label>
+        <label htmlFor="searchField" className="sr-only">
+          검색 필드 선택
+        </label>
         <select
           id="searchField"
           className="p-1 sm:p-2 border border-solid border-gray-300 dark:border-gray-600 rounded bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-xs sm:text-sm w-20 sm:w-auto"
@@ -185,15 +181,13 @@ const BoardClient: React.FC<BoardClientProps> = ({
           onChange={(e) => setSearchField(e.target.value)}
         >
           <option value="all">전체</option>
-          <option value="username">회원의 아이디</option>
-          <option value="phoneNum">전화번호</option>
-          <option value="fullName">풀네임</option>
+          <option value="title">제목</option>
+          <option value="content">내용</option>
           <option value="nickname">닉네임</option>
-          <option value="status">상태</option>
-          <option value="createdDt">날짜</option>
         </select>
-        
-        <label htmlFor="searchQuery" className="sr-only">검색어 입력</label>
+        <label htmlFor="searchQuery" className="sr-only">
+          검색어 입력
+        </label>
         <input
           id="searchQuery"
           type="text"
@@ -202,7 +196,6 @@ const BoardClient: React.FC<BoardClientProps> = ({
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-  
         <button
           onClick={handleSearch}
           className="px-2 py-1 sm:px-4 sm:py-2 bg-gray-600 text-white text-xs sm:text-sm rounded-md font-medium hover:bg-gray-700 dark:bg-gray-500 dark:hover:bg-gray-600 transition-colors truncate"
@@ -210,6 +203,7 @@ const BoardClient: React.FC<BoardClientProps> = ({
           검색
         </button>
       </div>
+
       <header className="flex justify-between items-center w-full text-xs md:text-sm text-[#555555]">
         <div className="flex gap-2">
           <div className="text-[#555555] text-sm flex items-center gap-2">
@@ -253,22 +247,33 @@ const BoardClient: React.FC<BoardClientProps> = ({
           </div>
         )}
       </header>
-  
+
       {/* Desktop Layout */}
       <table className="w-full bg-white text-[14px] table-fixed hidden sm:table">
         <thead className="bg-[#F2F5FF]">
           <tr className="border-t-2 border-[#2C4AB6] text-[#2C4AB6] font-semibold">
-            {userInfo?.sck && <th className="w-14 py-3 px-2 text-center">선택</th>}
+            {userInfo?.sck && (
+              <th className="w-14 py-3 px-2 text-center">선택</th>
+            )}
             <th className="grow py-3 px-2 text-left">제목</th>
             <th className="w-20 py-3 px-2 text-center">이름</th>
-            <th className="hidden md:table-cell w-32 py-3 px-2 text-center">날짜</th>
-            <th className="hidden md:table-cell w-20 py-3 px-2 text-center">조회</th>
-            <th className="hidden md:table-cell w-20 py-3 px-2 text-center">추천</th>
+            <th className="hidden md:table-cell w-32 py-3 px-2 text-center">
+              날짜
+            </th>
+            <th className="hidden md:table-cell w-20 py-3 px-2 text-center">
+              조회
+            </th>
+            <th className="hidden md:table-cell w-20 py-3 px-2 text-center">
+              추천
+            </th>
           </tr>
         </thead>
         <tbody>
           {boardList.map((boardItem) => (
-            <tr key={boardItem.id} className="border-b border-gray-200 bg-white hover:bg-[#f1f3fa] hover:text-blue">
+            <tr
+              key={boardItem.id}
+              className="border-b border-gray-200 bg-white hover:bg-[#f1f3fa] hover:text-blue"
+            >
               {userInfo?.sck && (
                 <td className="w-10 py-4 px-2 text-center">
                   <input
@@ -282,27 +287,41 @@ const BoardClient: React.FC<BoardClientProps> = ({
               <td className="grow py-4 px-2 text-left font-medium truncate">
                 <div className="flex items-center gap-1 leading-5">
                   {isNew(boardItem.createdDt.toString()) && <NewIcon />}
-                  <Link href={`${pathname}/${boardItem.id}`} className="truncate max-w-full">
+                  <Link
+                    href={`${pathname}/${boardItem.id}`}
+                    className="truncate max-w-full"
+                  >
                     {boardItem.title}
                     {boardItem.replyNum > 0 && (
-                      <span className="text-blue ml-2 text-sm">+{boardItem.replyNum}</span>
+                      <span className="text-blue ml-2 text-sm">
+                        +{boardItem.replyNum}
+                      </span>
                     )}
                   </Link>
                 </div>
               </td>
               <td className="w-20 py-4 px-2 text-center">{boardItem.nickname}</td>
-              <td className="hidden md:table-cell w-32 py-4 px-2 text-center">{boardItem.createdDt.toString()}</td>
-              <td className="hidden md:table-cell w-20 py-4 px-2 text-center">{boardItem.hit}</td>
-              <td className="hidden md:table-cell w-20 py-4 px-2 text-center">{boardItem.likes}</td>
+              <td className="hidden md:table-cell w-32 py-4 px-2 text-center">
+                <p>{boardItem.changedcreatedDt}</p>
+              </td>
+              <td className="hidden md:table-cell w-20 py-4 px-2 text-center">
+                {boardItem.hit}
+              </td>
+              <td className="hidden md:table-cell w-20 py-4 px-2 text-center">
+                {boardItem.likes}
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
-  
+
       {/* Mobile Layout */}
       <div className="sm:hidden flex flex-col gap-2">
         {boardList.map((boardItem) => (
-          <div key={boardItem.id} className="w-full border border-gray-200 rounded-md p-3 shadow-sm hover:bg-[#f1f3fa]">
+          <div
+            key={boardItem.id}
+            className="w-full border border-gray-200 border-solid rounded-md p-3 shadow-sm hover:bg-[#f1f3fa]"
+          >
             <div className="flex justify-between items-center">
               {userInfo?.sck && (
                 <input
@@ -312,21 +331,24 @@ const BoardClient: React.FC<BoardClientProps> = ({
                   className="h-4 w-4 mr-2"
                 />
               )}
-              <Link href={`${pathname}/${boardItem.id}`} className="font-medium truncate flex-1">
+              <Link
+                href={`${pathname}/${boardItem.id}`}
+                className="font-medium truncate flex-1"
+              >
                 {boardItem.title}
               </Link>
-                <span className="text-blue text-sm">+{boardItem.replyNum}</span>
+              <span className="text-blue text-sm">+{boardItem.replyNum}</span>
             </div>
             <div className="flex justify-start gap-2 mt-2 text-xs text-gray-600">
               <span>{boardItem.nickname}</span>
-              <span>{boardItem.createdDt.toString()}</span>
+              <span>{boardItem.changedcreatedDt}</span>
               <span>조회 {boardItem.hit}</span>
               <span>추천 {boardItem.likes}</span>
             </div>
           </div>
         ))}
       </div>
-  
+
       {writeBoolean
         ? userInfo?.role && (
             <span className="mt-5 w-full flex justify-end">
@@ -346,11 +368,20 @@ const BoardClient: React.FC<BoardClientProps> = ({
               </Link>
             </span>
           )}
-  
-      <Paging page={page} size={size} totalElements={totalElements} setPage={handlePageChange} scroll="top" />
-  
+
+      <Paging
+        page={page}
+        size={size}
+        totalElements={totalElements}
+        setPage={handlePageChange}
+        scroll="top"
+      />
+
       {showTransferPopup && (
-        <TransferPopup onClose={() => setShowTransferPopup(false)} onConfirm={handleTransferConfirm} />
+        <TransferPopup
+          onClose={() => setShowTransferPopup(false)}
+          onConfirm={handleTransferConfirm}
+        />
       )}
     </section>
   );

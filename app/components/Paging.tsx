@@ -17,7 +17,7 @@ interface PagingProps {
 }
 
 const Paging: FC<PagingProps> = ({
-  page,
+  page = 1, // default to 1 if page is undefined
   size,
   totalElements,
   setPage,
@@ -26,6 +26,7 @@ const Paging: FC<PagingProps> = ({
   const handlePageChange = (pageNumber: number) => {
     setPage(pageNumber);
 
+    // Scroll to the desired position on page change
     if (scroll === "top") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else if (scroll === "bottom") {
@@ -38,7 +39,7 @@ const Paging: FC<PagingProps> = ({
       <div className="justify-center sm:flex" aria-label="Pagination">
         <StyledPagination>
           <Pagination
-            activePage={page}
+            activePage={page} // Ensures the correct page is highlighted
             itemsCountPerPage={size}
             totalItemsCount={totalElements}
             pageRangeDisplayed={5}
@@ -111,9 +112,7 @@ const StyledPagination = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    transition:
-      background-color 0.2s,
-      color 0.2s;
+    transition: background-color 0.2s, color 0.2s;
   }
 
   ul.pagination li:first-child a {

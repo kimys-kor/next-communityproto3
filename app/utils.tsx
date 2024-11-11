@@ -35,6 +35,22 @@ export const categoryMap: { [key: number]: string } = {
   10: "피해사례",
 };
 
+export const formatDate = (dateString: string): string => {
+  const date = new Date(dateString);
+
+  const today = new Date();
+  const isToday =
+    date.getFullYear() === today.getFullYear() &&
+    date.getMonth() === today.getMonth() &&
+    date.getDate() === today.getDate();
+
+  if (isToday) {
+    return `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+  } else {
+    return `${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+  }
+};
+
 export const fetchInitialBoardListData = async (
   typ: number,
   page: number,
@@ -53,8 +69,13 @@ export const fetchInitialBoardListData = async (
     const data = await response.json();
     const { content, totalElements } = data.data;
 
+    const formattedContent = content.map((item:any) => ({
+      ...item,
+      changedcreatedDt: formatDate(item.createdDt.toString()),
+    }));
+
     return {
-      content: content as BoardItem[],
+      content: formattedContent as BoardItem[],
       totalElements,
       page,
       size,

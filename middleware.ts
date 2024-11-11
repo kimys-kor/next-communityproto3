@@ -11,7 +11,6 @@ export async function middleware(request: NextRequest) {
   const accessToken = cookieValues["Authorization"]?.replace("Bearer ", "");
   const refreshToken = cookieValues["refresh_token"];
 
-  // If accessToken or refreshToken is missing or if the token is not expiring soon, skip refresh
   if (!accessToken || !isTokenExpiringSoon(accessToken)) {
     return NextResponse.next({ request: { headers: requestHeaders } });
   }
@@ -20,35 +19,34 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next({ request: { headers: requestHeaders } });
   }
 
-  // Attempt to refresh the token
+  
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/refresh`, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Cookie: `refresh_token=${refreshToken}`,
-      },
-    });
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/refresh`, {
+            method: "GET",
+            headers: {
+                Cookie: `refresh_token=${refreshToken}`,
+                "Content-Type": "application/json",
+            },
+        });
 
-    if (!response.ok) {
-      console.error(
-        "Failed to refresh user data:",
-        response.status,
-        response.statusText
-      );
-      const errorDetails = await response.json();
-      console.error("Error details:", errorDetails);
-      throw new Error(`Failed to refresh user data: ${response.status}`);
+        if (!response.ok) {
+            console.error(
+                "Failed to refresh user data:",
+                response.status,
+                response.statusText
+            );
+            const errorDetails = await response.json();
+            console.error("Error details:", errorDetails);
+            throw new Error(`Failed to refresh user data: ${response.status}`);
+        }
+
+        const { data } = await response.json();
+
+        return NextResponse.next({ request: { headers: requestHeaders } });
+    } catch (error) {
+        console.error("Error refreshing user data:", error);
+        return NextResponse.next({ request: { headers: requestHeaders } });
     }
-
-    const { data } = await response.json();
-    // Optionally update headers or cookies based on refreshed tokens
-
-    return NextResponse.next({ request: { headers: requestHeaders } });
-  } catch (error) {
-    console.error("Error refreshing user data:", error);
-    return NextResponse.next({ request: { headers: requestHeaders } });
-  }
 }
 
 export const config = {

@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import MemberDetail from "./MemberDetail";
 import Paging from "@/app/components/Paging";
@@ -51,7 +50,7 @@ function AdminMemberListClient() {
       setSelectedMembers([]);
       setSelectAll(false);
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("서버에 문제가 발생했습니다");
     }
   };
 
@@ -116,7 +115,7 @@ function AdminMemberListClient() {
       toast.success("선택한 회원이 차단되었습니다.");
       fetchData(currentPage, keyword);
     } catch (error) {
-      toast.error('서버에 문제가 발생했습니다')
+      toast.error("서버에 문제가 발생했습니다");
     }
   };
 
@@ -132,37 +131,34 @@ function AdminMemberListClient() {
   return (
     <div>
       {/* Search Controls */}
-      <div className="flex items-center gap-3 mb-6 p-3 bg-white rounded-md border border-solid border-gray-200 shadow-sm">
+      <div className="flex flex-col md:flex-row items-center gap-3 mb-6 p-3 bg-white rounded-md border border-solid border-gray-200 shadow-sm">
         <select
-          className="p-2 border border-solid border-gray-300 rounded bg-gray-100 text-gray-700 text-sm"
+          className="p-2 border border-solid border-gray-300 rounded bg-gray-100 text-gray-700 text-sm w-full md:w-auto"
           value={searchField}
           onChange={(e) => setSearchField(e.target.value)}
         >
           <option value="all">전체</option>
-          <option value="username">회원의 아이디</option>
-          <option value="phoneNum">전화번호</option>
-          <option value="fullName">풀네임</option>
+          <option value="title">제목</option>
+          <option value="content">내용</option>
           <option value="nickname">닉네임</option>
-          <option value="status">상태</option>
-          <option value="createdDt">날짜</option>
         </select>
         <input
           type="text"
           placeholder="검색어 입력"
-          className="p-2 border border-solid border-gray-300 rounded w-64 text-gray-700 text-sm bg-gray-100"
+          className="p-2 border border-solid border-gray-300 rounded w-full md:w-64 text-gray-700 text-sm bg-gray-100"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
         <button
           onClick={handleSearch}
-          className="px-4 py-2 bg-gray-600 text-white text-sm rounded-md font-medium"
+          className="px-4 py-2 bg-gray-600 text-white text-sm rounded-md font-medium w-full md:w-auto"
         >
           검색
         </button>
       </div>
 
-      <header className="flex justify-between items-center w-full text-xs md:text-sm text-[#555555]">
-        <div className="flex gap-2">
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center w-full text-xs md:text-sm text-[#555555]">
+        <div className="flex gap-2 mb-4 sm:mb-0">
           <div className="text-[#555555] text-sm flex items-center gap-2">
             총
             <span className="text-[#2C4AB6] font-semibold">
@@ -172,9 +168,7 @@ function AdminMemberListClient() {
           </div>
           <div className="text-[#555555] text-sm">
             {"("}
-            <span className="text-[#2C4AB6] font-semibold">
-              {currentPage}
-            </span>{" "}
+            <span className="text-[#2C4AB6] font-semibold">{currentPage}</span>{" "}
             / <span>{totalPages}</span> 페이지{")"}
           </div>
         </div>
@@ -217,31 +211,31 @@ function AdminMemberListClient() {
       )}
 
       {/* Members Table */}
-      <div className="mt-5 w-full overflow-x-auto">
-        <table className="w-full bg-white border truncate border-solid border-gray-300">
+      <div className="overflow-x-auto w-full">
+        <table className="w-full min-w-[800px] bg-white border border-solid border-gray-300">
           <thead>
-            <tr className="bg-gray-100 text-gray-700 text-sm">
-              <th className="py-2 px-4 border-b border-solid">선택</th>
-              <th className="py-2 px-4 border-b border-solid">ID</th>
-              <th className="py-2 px-4 border-b border-solid">아이디</th>
-              <th className="py-2 px-4 border-b border-solid">전화번호</th>
-              <th className="py-2 px-4 border-b border-solid">이름</th>
-              <th className="py-2 px-4 border-b border-solid">닉네임</th>
-              <th className="py-2 px-4 border-b border-solid">포인트</th>
-              <th className="py-2 px-4 border-b border-solid">경험치</th>
-              <th className="py-2 px-4 border-b border-solid">상태</th>
-              <th className="py-2 px-4 border-b border-solid">생성 날짜</th>
-              <th className="py-2 px-4 border-b border-solid">마지막 로그인</th>
-              <th className="py-2 px-4 border-b border-solid">수정</th>
+            <tr className="bg-gray-100 text-gray-700 text-xs sm:text-sm">
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">선택</th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">ID</th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">아이디</th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">전화번호</th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">이름</th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">닉네임</th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">포인트</th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">경험치</th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">상태</th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">생성 날짜</th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">마지막 로그인</th>
+              <th className="py-2 px-2 sm:px-4 border-b border-solid">수정</th>
             </tr>
           </thead>
           <tbody>
             {members.map((member) => (
               <tr
                 key={member.id}
-                className="text-gray-600 text-sm hover:bg-gray-200 transition-colors duration-200"
+                className="text-gray-600 text-xs sm:text-sm hover:bg-gray-200 transition-colors duration-200"
               >
-                <td className="py-2 px-4 border-b border-solid text-center">
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
                   <input
                     type="checkbox"
                     checked={selectedMembers.includes(member.username)}
@@ -249,40 +243,22 @@ function AdminMemberListClient() {
                     className="h-4 w-4"
                   />
                 </td>
-                <td className="py-2 px-4 border-b border-solid text-center">
-                  {member.id}
-                </td>
-                <td className="py-2 px-4 border-b border-solid text-center">
-                  {member.username}
-                </td>
-                <td className="py-2 px-4 border-b border-solid text-center">
-                  {member.phoneNum}
-                </td>
-                <td className="py-2 px-4 border-b border-solid text-center">
-                  {member.fullName}
-                </td>
-                <td className="py-2 px-4 border-b border-solid text-center">
-                  {member.nickname}
-                </td>
-                <td className="py-2 px-4 border-b border-solid text-center">
-                  {member.point}
-                </td>
-                <td className="py-2 px-4 border-b border-solid text-center">
-                  {member.exp}
-                </td>
-                <td className="py-2 px-4 border-b border-solid text-center">
-                  {member.status}
-                </td>
-                <td className="py-2 px-4 border-b border-solid text-center">
-                  {member.createdDt}
-                </td>
-                <td className="py-2 px-4 border-b border-solid text-center">
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">{member.id}</td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid">{member.username}</td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid">{member.phoneNum}</td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid">{member.fullName}</td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid">{member.nickname}</td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">{member.point}</td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">{member.exp}</td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">{member.status}</td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">{member.createdDt}</td>
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
                   {member.lastLogin ? member.lastLogin : "모름"}
                 </td>
-                <td className="py-2 px-4 border-b border-solid text-center">
+                <td className="py-2 px-2 sm:px-4 border-b border-solid text-center">
                   <button
                     onClick={() => setSelectedMember(member)}
-                    className="px-3 py-1 text-xs text-gray-700 border border-solid border-gray-500 rounded hover:bg-gray-500 hover:text-white transition-colors duration-200"
+                    className="px-2 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm text-gray-700 border border-solid border-gray-500 rounded hover:bg-gray-500 hover:text-white transition-colors duration-200"
                   >
                     수정
                   </button>

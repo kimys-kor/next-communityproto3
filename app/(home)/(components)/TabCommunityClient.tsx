@@ -10,8 +10,9 @@ type TabContent = {
   title: string;
   img: string;
   date: string;
-  writer: string;
+  nickname: string;
   thumbNail: string;
+  changedcreatedDt: string;
 }[];
 
 interface TabACommunityClientProps {
@@ -47,18 +48,6 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
         const data = await response.json();
         let content = data.data.content;
 
-        console.log(content)
-
-
-        if (activeTab === 0) {
-          content = content.map((item: any) => ({
-            id: item.id,
-            title: item.title,
-            thumbNail: item.thumbNail,
-            date: new Date(item.createdDt).toLocaleDateString("ko-KR", { month: "2-digit", day: "2-digit" }),
-            writer: item.nickname
-          }));
-        }
         setTabContent(content);
       } catch (error) {
         toast.error("서버에 문제가 발생했습니다");
@@ -113,15 +102,15 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
                     alt={`photo content ${item.title}`}
                   />
                   <div className="text-center w-full">
-                    <div className="text-base truncate">
+                    <div className="text-sm truncate">
                       {item.title}
                     </div>
                     <div className="flex justify-center">
                       <span className="w-1/2 truncate text-xs text-gray-500">
-                        {item.date}
+                        {item.changedcreatedDt}
                       </span>
                       <span className="w-1/2 truncate text-xs text-gray-500">
-                        {item.writer}
+                        {item.nickname}
                       </span>
                     </div>
                   </div>

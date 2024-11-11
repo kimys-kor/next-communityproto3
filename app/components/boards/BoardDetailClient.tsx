@@ -25,7 +25,7 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
   boardId,
   initialCommentsData,
 }) => {
-  const pathname = usePathname(); // use usePathname instead of router.pathname
+  const pathname = usePathname();
   const basePath = pathname?.split("/")[1] || "";
   const [isEditing, setIsEditing] = useState(false);
 
@@ -80,7 +80,7 @@ const BoardDetailClient: React.FC<BoardDetailClientPropsWithComments> = ({
   return (
     <div>
       <section className="flex flex-col gap-1 mt-3">
-        <h1 className="font-semibold text-3xl">{content.title}</h1>
+        <h1 className="font-semibold text-lg md:text:xl">{content.title}</h1>
         <article className="mt-3 w-full px-3 py-2 flex items-center justify-between gap-1 bg-semiblue">
           <div className="flex items-center gap-1">
             {content.username === "master" && (

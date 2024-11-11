@@ -22,7 +22,7 @@ const HomeBoardWeekCard = async () => {
                 : ""
             } hover:bg-lightblue`}
           >
-            <div className="w-[90%] truncate flex justify-center items-center gap-2">
+            <div className="w-[90%] truncate flex items-center gap-2">
               <span
                 className="w-[85px] truncate flex items-center gap-1 rounded-2xl cursor-pointer text-white text-xs px-[6px] py-[4px] transition-all shadow-lg"
                 style={{

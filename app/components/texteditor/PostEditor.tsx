@@ -54,7 +54,7 @@ const Tiptap = ({ value, onChange }: TipTapProps) => {
     editorProps: {
       attributes: {
         class:
-          "prose prose-sm sm:prose-sm lg:prose-lg xl:prose-2xl shadow appearance-none min-w-full min-h-[500px] border rounded w-full py-2 px-3 bg-white text-black text-sm mt-0 md:mt-3 leading-tight focus:outline-none focus:shadow-outline",
+          "prose prose-sm sm:prose-sm lg:prose-lg xl:prose-2xl shadow appearance-none min-w-full min-h-[400px] border rounded w-full py-2 px-3 bg-white text-black text-sm mt-0 md:mt-3 leading-tight focus:outline-none focus:shadow-outline",
       },
       handleDrop(view, event, slice, moved) {
         const dataTransfer = event.dataTransfer;
@@ -76,7 +76,7 @@ const Tiptap = ({ value, onChange }: TipTapProps) => {
         bulletList: { keepMarks: true, keepAttributes: false },
         orderedList: { keepMarks: true, keepAttributes: false },
         heading: { levels: [1, 2, 3] },
-        paragraph: { HTMLAttributes: { class: "text-2xl min-h-[3rem]" } },
+        paragraph: { HTMLAttributes: { class: "text-sm md:text-xl min-h-[2rem]" } },
       }),
       FontSize,
       TextStyle,
@@ -132,7 +132,7 @@ const Tiptap = ({ value, onChange }: TipTapProps) => {
   return (
     <div className="flex flex-col border border-solid border-gray-200">
       <MenuBar editor={editor} uploadImagesToServer={uploadImagesToServer} />
-      <EditorContent className="min-h-[500px]" editor={editor} />
+      <EditorContent className="min-h-[400px]" editor={editor} />
     </div>
   );
 };

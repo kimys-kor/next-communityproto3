@@ -91,7 +91,7 @@ export const TabACommunityClient: React.FC<TabACommunityClientProps> = ({
               {(tabContent as TabContent).map((item, index) => (
                 <Link
                   key={item.id}
-                  href={`/sport/${item.id}`}
+                  href={`/community/${item.id}`}
                   className="flex flex-col justify-evenly items-center gap-2 px-2 hover:cursor-pointer"
                 >
                   <Image
